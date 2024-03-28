@@ -24,3 +24,4 @@ Day 1 : Setting up a github repo,client, server folders and adding a readme file
 Day 2 : Low-Fid Figma Design
 Day 3 : High-Fid Figma Design
 
+#Low fid prototype link : https://www.figma.com/file/uBunyxQYWGmAXqjQV1Ovej/Capstone_LowFid?type=design&node-id=0%3A1&mode=design&t=utjpW5u0BtB4vC1W-1
