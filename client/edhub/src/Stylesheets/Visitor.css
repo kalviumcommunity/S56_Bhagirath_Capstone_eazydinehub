@@ -1,0 +1,64 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.logoDiv img{
+    height: 150px;
+    width: 190px;
+    padding: 30px;
+}
+.visitorDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.visitorCards{
+    width: 70%;
+    margin: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+.card{
+    height: 290px;
+    width: 250px;
+    background-color: #ECEEED;
+    box-shadow: 10px 10px 10px grey;
+}
+.card:hover{
+    cursor: pointer;
+}
+.visChef{
+    background-image: url("../assets/visChef-removebg-preview.png");
+    background-size: cover;
+    height: 250px;
+    width: 247px;
+}
+.visCustomer{
+    background-image: url("../assets/visCustomer.png");
+    background-size: cover;
+    height: 250px;
+    width: 247px;
+}
+.visAdmin{
+    background-image: url("../assets/visAdmin.png");
+    background-size: cover;
+    height: 250px;
+    width: 247px;
+}
+.visDetails{
+    height: 50px;
+    text-align: center;
+    background-color: black;
+    color: white;
+}
+.visDetails h3{
+    padding: 15px;
+}
+.visDetails:hover{
+    background-color: gray;
+    color: black;
+    transition: .1s ease-in;
+}
