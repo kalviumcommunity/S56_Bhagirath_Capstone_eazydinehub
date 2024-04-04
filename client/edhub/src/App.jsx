@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import './App.css'
 import Visitor from './Pages/Visitor'
 import {BrowserRouter,Route,Routes} from "react-router-dom"
 import CustomerLogin from './Pages/CustomerLogin'
