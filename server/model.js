@@ -8,5 +8,5 @@ const userSchema = new mongoose.Schema({
 
 userSchema.set("versionKey",false)
 
-const users = mongoose.model('users',userSchema)
+const users = mongoose.model('userlogins',userSchema)
 module.exports = {users}

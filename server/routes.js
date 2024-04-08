@@ -5,6 +5,10 @@ const { users } = require("./model.js");
 require('dotenv').config();
 const jwtSecret = process.env.JWT_SECRET;
 
+router.get("/getuser",async (req,res)=>{
+    const data = await users.find({});
+    res.json(data);
+})
 router.post("/signup", async (req, res) => {
   const { name,email, password } = req.body;
 

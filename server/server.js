@@ -21,6 +21,7 @@ app.get('/', (req, res) => {
     }
 })
 
+app.use("/getuser",router)
 if (require.main === module) {
     connected()
     app.listen(port, async () => {
