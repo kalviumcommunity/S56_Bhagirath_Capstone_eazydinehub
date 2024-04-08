@@ -4,7 +4,7 @@ let mongoose = require("mongoose")
 
 let connected = async() => {
     try{
-        await mongoose.connect(process.env.database_URI);
+        await mongoose.connect(process.env.database_URI.toString());
         console.log("Database connected successfully")
     }catch(error){
         console.log(error)
