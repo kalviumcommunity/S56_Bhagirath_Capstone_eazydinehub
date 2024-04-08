@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const { users } = require("./model.js"); 
+require('dotenv').config();
+const jwtSecret = process.env.JWT_SECRET;
 
 router.post("/signup", async (req, res) => {
   const { name,email, password } = req.body;
@@ -17,7 +19,7 @@ router.post("/signup", async (req, res) => {
 
     const token = jwt.sign(
       { userId: newUser._id, email: newUser.email },
-      "secretr_key",
+      jwtSecret,
       { expiresIn: "1h" } 
     );
     res.status(201).json({ message: "User created successfully", token });
