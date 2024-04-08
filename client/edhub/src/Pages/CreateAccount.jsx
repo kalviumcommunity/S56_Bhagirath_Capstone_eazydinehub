@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "../Stylesheets/Signup.css";
 
 const CreateAccount = () => {
@@ -11,25 +13,26 @@ const CreateAccount = () => {
     e.preventDefault();
     
     try {
-      const response = await fetch('/signup', {
+      const response = await fetch('https://s56-bhagirath-capstone-eazydinehub.onrender.com/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name,email, password }),
+        body: JSON.stringify({ name, email, password }),
       });
 
-      const data = await response.json();
+      const data = await response.json({});
       if (response.ok) {
-        alert(data.message);
+        toast.success(data.message); // Display success message
       } else {
-        alert(data.error);
+        toast.error(data.error); // Display error message
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('An error occurred. Please try again.');
+      toast.error('An error occurred. Please try again.'); // Display generic error message
     }
   };
+
   return (
     <div className="create-account-container">
       <div className="login-title">
@@ -69,6 +72,7 @@ const CreateAccount = () => {
           <p>Already have an account? <Link to="/cusLogin" style={{ textDecoration: 'none' }}>Log In</Link></p>
         </form>
       </div>
+      <ToastContainer position='top-center'/> 
     </div>
   );
 };
