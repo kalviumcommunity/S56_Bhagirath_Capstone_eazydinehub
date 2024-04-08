@@ -15,7 +15,7 @@ router.post("/signup", async (req, res) => {
   const { name,email, password } = req.body;
 
   try {
-    const existingUser = await users.findOne({ email });
+    const existingUser = await users.findOne({ email }, { maxTimeMS: 10000 });
     if (existingUser) {
       return res.status(400).json({ error: "User already exists" });
     }
