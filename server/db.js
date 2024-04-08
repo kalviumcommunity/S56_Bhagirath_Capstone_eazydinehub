@@ -1,19 +1,21 @@
 
-require("dotenv").config()
-let mongoose = require("mongoose")
+require("dotenv").config();
+const mongoose = require("mongoose");
 
-let connected = async() => {
-    try{
+const connected = async () => {
+    try {
         await mongoose.connect(process.env.database_URI.toString());
-        console.log("Database connected successfully")
-    }catch(error){
-        console.log(error)
+        console.log("Database connected successfully");
+    } catch (error) {
+        console.error(error);
     }
-}
+};
+
 const isConnected = () => {
     return mongoose.connection.readyState === 1;
-}
+};
 
 module.exports = {
-    isConnected,connected
-}
+    isConnected,
+    connected
+};
