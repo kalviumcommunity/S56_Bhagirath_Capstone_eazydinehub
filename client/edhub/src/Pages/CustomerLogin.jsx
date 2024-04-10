@@ -1,14 +1,29 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; 
-import "../Stylesheets/Login.css"
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import "../Stylesheets/Login.css";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`Email: ${email}, Password: ${password}`);
+    try {
+      const response = await axios.post('https://your-api-domain/login', {
+        email,
+        password
+      });
+      const data = response.data;
+      if (response.status === 200) {
+        alert('Login successful');
+      } else {
+        alert(data.error);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred. Please try again.');
+    }
   };
 
   return (
