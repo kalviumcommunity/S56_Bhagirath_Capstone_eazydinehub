@@ -41,28 +41,30 @@ router.post("/signup", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
-
-  try {
-    const user = await users.findOne({ email: email });
-    if (!user) {
-      return res.status(401).json({ error: "User not found" });
-    }
-
-    const passwordMatch = await bcrypt.compare(password, user.password);
-    if (!passwordMatch) {
-      return res.status(401).json({ error: "Incorrect password" });
-    }
-
-    const token = jwt.sign(
-      { userId: user._id, email: user.email },
-      jwtSecret,
-      { expiresIn: "1h" }
-    );
-    res.status(200).json({ message: "Login successful", token });
-  } catch (error) {
-    console.error("Error logging in:", error);
-    res.status(500).json({ error: error.message || "Internal server error" });
+  const user = await users.findOne({ email: email });
+  if (!user) {
+    return res.status(401).json({ error: "User not found" });
   }
+  const passwordMatch = await bcrypt.compare(password,user.password);
+  if (!passwordMatch) {
+    console.log("password not matching")
+    return res.status(402).json({ error: "Incorrect password" });
+  }
+  else{
+    try {
+      const token = jwt.sign(
+        { userId: user._id, email: user.email },
+        jwtSecret,
+        { expiresIn: "1h" }
+      );
+      res.status(200).json({ message: "Login successful", token });
+    } catch (error) {
+      console.error("Error logging in:", error);
+      res.status(501).json({ error: error.message || "Internal server error" });
+    }
+  }
+
+  
 });
 
 module.exports = router;
