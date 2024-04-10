@@ -3,8 +3,6 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const connected = async () => {
     try {
-        // console.log(process.env.database_URI)
-        // console.log(typeof(process.env.database_URI))
         await mongoose.connect(process.env.database_URI);
         console.log("Database connected successfully");
     } catch (error) {
