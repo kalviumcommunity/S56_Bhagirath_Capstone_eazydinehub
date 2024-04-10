@@ -1,28 +1,32 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 import "../Stylesheets/Login.css";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://your-api-domain/login', {
+      const response = await axios.post('https://s56-bhagirath-capstone-eazydinehub.onrender.com/login', {
         email,
         password
       });
       const data = response.data;
       if (response.status === 200) {
-        alert('Login successful');
+        toast.success('Login successful');
+        navigate('/landingpage'); 
       } else {
-        alert(data.error);
+        toast.error(data.error);
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('An error occurred. Please try again.');
+      toast.error('An error occurred. Please try again.');
     }
   };
 
@@ -59,6 +63,7 @@ const Login = () => {
           </Link>
         </form>
       </div>
+      <ToastContainer position='top-center'/> 
     </div>
   );
 };
