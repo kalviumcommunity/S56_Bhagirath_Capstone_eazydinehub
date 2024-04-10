@@ -13,7 +13,7 @@ const CreateAccount = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    axios.post('https://s56-bhagirath-capstone-eazydinehub.onrender.com/signup', {
+    axios.post('http://localhost:3200/signup', {
       name,
       email,
       password

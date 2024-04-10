@@ -13,22 +13,22 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://s56-bhagirath-capstone-eazydinehub.onrender.com/login', {
+      const response = await axios.post('http://localhost:3200/login', {
         email,
         password
       });
-      const data = response.data;
+  
       if (response.status === 200) {
         toast.success('Login successful');
-        navigate('/landingpage'); 
-      } else {
-        toast.error(data.error);
-      }
+        setTimeout(()=>{
+          navigate('/landingpage'); 
+        },2000)
+      } 
     } catch (error) {
-      console.error('Error:', error);
-      toast.error('An error occurred. Please try again.');
+      toast.error(error.response.data.error);
     }
-  };
+  
+  }
 
   return (
     <div className="login-container">
