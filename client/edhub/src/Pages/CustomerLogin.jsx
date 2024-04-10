@@ -13,7 +13,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3200/login', {
+      const response = await axios.post('https://s56-bhagirath-capstone-eazydinehub.onrender.com/login', {
         email,
         password
       });
