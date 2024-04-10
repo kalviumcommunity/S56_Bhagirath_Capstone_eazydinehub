@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "../Stylesheets/Signup.css";
-import axios from "axios"
+import axios from "axios";
 
 const CreateAccount = () => {
   const [name, setName] = useState('');
