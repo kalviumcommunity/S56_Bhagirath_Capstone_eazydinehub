@@ -35,7 +35,7 @@ router.post("/signup", async (req, res) => {
     res.status(201).json({ message: "User created successfully", token });
   } catch (error) {
     console.error("Error creating user:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: error.message || "Internal server error" });
   }
 });
 
@@ -61,7 +61,7 @@ router.post("/login", async (req, res) => {
     res.status(200).json({ message: "Login successful", token });
   } catch (error) {
     console.error("Error logging in:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: error.message || "Internal server error" });
   }
 });
 
