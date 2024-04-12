@@ -9,7 +9,6 @@ import CustomerProfile from './Pages/CustomerProfile';
 import YourOrders from './Pages/YourOrders';
 
 function App() {
-  const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -17,13 +16,8 @@ function App() {
     if (token) {
       setIsLoggedIn(true);
     }
-    setLoading(false); // Set loading to false once useEffect is finished
-  }, []); // Runs once when the component mounts
+  }, []); 
 
-  if (loading) {
-    // Render loading indicator or component
-    return <div>Loading...</div>;
-  }
 
   return (
     <BrowserRouter>
