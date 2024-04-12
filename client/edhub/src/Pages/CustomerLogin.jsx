@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import "../Stylesheets/Login.css";
 
-const Login = () => {
+const CustomerLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate(); 
@@ -19,17 +19,21 @@ const Login = () => {
       });
   
       if (response.status === 200) {
-        toast.success('Login successful');
+        toast.success('Login successful',{
+          autoClose:2000
+        });
+        localStorage.setItem('token', response.data.token);
         setTimeout(()=>{
-          navigate('/landingpage'); 
-        },2000)
-      } 
+          window.location.reload()
+        },3000)
+      } else {
+        toast.error('Login failed');
+      }
     } catch (error) {
       toast.error(error.response.data.error);
     }
-  
   }
-
+ 
   return (
     <div className="login-container">
       <div className="login-title">
@@ -68,4 +72,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default CustomerLogin;

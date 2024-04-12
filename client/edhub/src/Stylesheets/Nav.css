@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-nav{
+body{
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-style: normal;
+}
+nav{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -29,6 +31,16 @@ nav{
 }
 .rightNav ul li{
     margin:0px 15px 0px 15px;
+    font-size: 1.3rem;
+    cursor: pointer;;
+}
+.rightNav ul li button{
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    outline: none;
+    background-color: white;
+    border: none;
     font-size: 1.3rem;
     cursor: pointer;
 }

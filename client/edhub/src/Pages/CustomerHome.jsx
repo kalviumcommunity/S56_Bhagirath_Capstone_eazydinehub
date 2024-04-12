@@ -1,6 +1,6 @@
 import React from 'react'
-import "../Stylesheets/Nav.css"
 import Navbar from '../Components/Navbar'
+import "../Stylesheets/common.css"
 function CustomerHome() {
   return (
     <div>

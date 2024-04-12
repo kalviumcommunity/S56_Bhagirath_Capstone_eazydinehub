@@ -5,8 +5,21 @@ const { users } = require("./model.js");
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 const jwtSecret = process.env.JWT_SECRET;
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({ error: "Unauthorized: No token provided" });
+  }
+  jwt.verify(token, jwtSecret, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ error: "Unauthorized: Invalid token" });
+    }
+    req.userId = decoded.userId;
+    next();
+  });
+};
 
-router.get("/getuser", async (req, res) => {
+router.get("/getuser", verifyToken, async (req, res) => {
   try {
     const data = await users.find({});
     res.json(data);
@@ -45,12 +58,12 @@ router.post("/login", async (req, res) => {
   if (!user) {
     return res.status(401).json({ error: "User not found" });
   }
-  const passwordMatch = await bcrypt.compare(password,user.password);
+  const passwordMatch = await bcrypt.compare(password, user.password);
   if (!passwordMatch) {
     console.log("password not matching")
     return res.status(402).json({ error: "Incorrect password" });
   }
-  else{
+  else {
     try {
       const token = jwt.sign(
         { userId: user._id, email: user.email },
@@ -63,8 +76,6 @@ router.post("/login", async (req, res) => {
       res.status(501).json({ error: error.message || "Internal server error" });
     }
   }
-
-  
 });
 
 module.exports = router;
