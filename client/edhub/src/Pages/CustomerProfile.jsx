@@ -1,11 +1,23 @@
-import React from 'react'
-import Navbar from '../Components/Navbar'
+import React from 'react';
+import Navbar from '../Components/Navbar';
+import { useDispatch } from 'react-redux';
+import {logout} from "../actions.js"
+import { useNavigate } from 'react-router-dom';
 function CustomerProfile() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.clear()
+    navigate("/landingpage")
+  };
+
   return (
     <div>
-        <Navbar/>
+      <Navbar />
+      <button onClick={handleLogout}>LOGOUT</button>
     </div>
-  )
+  );
 }
 
-export default CustomerProfile
+export default CustomerProfile;

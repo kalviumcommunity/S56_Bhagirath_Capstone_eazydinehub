@@ -4,12 +4,6 @@ import edhlogo from "../assets/edhlogo.png";
 import { Link } from "react-router-dom";
 
 function Navbar() {
-  function handleClick() {
-    localStorage.clear();
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
-  }
   const navLinks = [
     { to: "/spldishes", text: "SPECIAL DISHES" },
     { to: "/myorders", text: "MY ORDERS" },
@@ -39,7 +33,6 @@ function Navbar() {
             {navLinks.slice(1).map((link, index) => (
               <li key={index}><Link style={{ textDecoration: "none", color: "black" }} to={link.to}>{link.text}</Link></li>
             ))}
-            <li><button onClick={handleClick}>LOGOUT</button></li>
           </ul>
         </div>
       </nav>

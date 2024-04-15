@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; 
+import 'react-toastify/dist/ReactToastify.css';
+import { login } from '../actions.js'; 
 import "../Stylesheets/Login.css";
 
 const CustomerLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); 
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch(); 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -17,14 +20,15 @@ const CustomerLogin = () => {
         email,
         password
       });
-  
+
       if (response.status === 200) {
         toast.success('Login successful',{
           autoClose:2000
         });
         localStorage.setItem('token', response.data.token);
+        dispatch(login()); 
         setTimeout(()=>{
-          window.location.reload()
+          navigate("/landingpage")
         },3000)
       } else {
         toast.error('Login failed');
