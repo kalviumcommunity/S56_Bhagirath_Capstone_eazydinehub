@@ -22,7 +22,7 @@ function Visitor() {
             <div className="card">
                 <div className="visCustomer"></div>
                 <div className="visDetails">
-                   <Link to={"/cusLogin"} style={{color:"white",textDecoration:"none"}}><h3>CUSTOMER</h3></Link>
+                   <Link to={"/landingpage"} style={{color:"white",textDecoration:"none"}}><h3>CUSTOMER</h3></Link>
                 </div>
             </div>
             <div className="card">
