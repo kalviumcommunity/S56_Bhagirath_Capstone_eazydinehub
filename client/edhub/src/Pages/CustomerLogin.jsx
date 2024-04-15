@@ -23,13 +23,13 @@ const CustomerLogin = () => {
 
       if (response.status === 200) {
         toast.success('Login successful',{
-          autoClose:2000
+          autoClose:2000,
+          onClose: () => {
+            localStorage.setItem('token', response.data.token);
+            dispatch(login()); 
+            navigate("/landingpage");
+          }
         });
-        localStorage.setItem('token', response.data.token);
-        dispatch(login()); 
-        setTimeout(()=>{
-          navigate("/landingpage")
-        },3000)
       } else {
         toast.error('Login failed');
       }

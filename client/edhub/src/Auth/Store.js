@@ -1,8 +1,12 @@
-import {configureStore} from "@reduxjs/toolkit"
-import { rootReducer } from "./rootReducer"
+import { configureStore, applyMiddleware } from "@reduxjs/toolkit";
+import thunk from 'redux-thunk';
+import { rootReducer } from "./rootReducer";
+
 const store = configureStore({
-    reducer:{
-        root:rootReducer
-    }
-})
-export default store
+    reducer: {
+        root: rootReducer
+    },
+    middleware: [thunk]
+});
+
+export default store;
