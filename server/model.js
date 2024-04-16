@@ -9,4 +9,13 @@ const userSchema = new mongoose.Schema({
 userSchema.set("versionKey",false)
 
 const users = mongoose.model('userlogins',userSchema)
-module.exports = {users}
+
+const adminSchema = new mongoose.Schema({
+    adminName:String,
+    adminEmail:String,
+    adminPassword:String,
+})
+adminSchema.set("versionKey",false)
+const admins = mongoose.model("adminlogins",adminSchema)
+
+module.exports = {users,admins}
