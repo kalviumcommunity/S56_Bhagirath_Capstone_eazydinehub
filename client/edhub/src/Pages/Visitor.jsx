@@ -28,7 +28,7 @@ function Visitor() {
             <div className="card">
                 <div className="visAdmin"></div>
                 <div className="visDetails">
-                    <h3>ADMIN</h3>
+                <Link to={"/adLogin"} style={{color:"white",textDecoration:"none"}}><h3>ADMIN</h3></Link>
                 </div>
             </div>
         </div>

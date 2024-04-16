@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { login } from '../actions.js'; 
 import "../Stylesheets/Login.css";
 
-const CustomerLogin = () => {
+const AdminLogin = () => {
   const [adminEmail, setAdminEmail] = useState('');
   const [adminPassword, setAdminPassword] = useState('');
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const CustomerLogin = () => {
           onClose: () => {
             localStorage.setItem('token', response.data.token);
             dispatch(login()); 
-            navigate("/landingpage");
+            navigate("/adminlanding");
           }
         });
       } else {
@@ -44,13 +44,13 @@ const CustomerLogin = () => {
         <h1>EazyDine HUB</h1>
         <p>A taste you'll remember.</p>
       </div>
-      <div className="login-form">
+      <div className="login-form" style={{height:"180px"}}>
         <form onSubmit={handleSubmit}>
           <input
             type="email"
             id="email"
             name="email"
-            value={email}
+            value={adminEmail}
             onChange={(e) => setAdminEmail(e.target.value)}
             required
             placeholder="Enter your email address"
@@ -59,7 +59,7 @@ const CustomerLogin = () => {
             type="password"
             id="password"
             name="password"
-            value={password}
+            value={adminPassword}
             onChange={(e) => setAdminPassword(e.target.value)}
             required
             placeholder="Enter your password"
@@ -72,4 +72,4 @@ const CustomerLogin = () => {
   );
 };
 
-export default CustomerLogin;
+export default AdminLogin;

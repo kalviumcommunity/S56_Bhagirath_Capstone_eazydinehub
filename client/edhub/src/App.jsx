@@ -9,6 +9,8 @@ import Cart from './Pages/Cart';
 import CustomerProfile from './Pages/CustomerProfile';
 import YourOrders from './Pages/YourOrders';
 import ProtectedRoute from './Auth/ProtectedRoute';
+import AdminLanding from './Pages/AdminLanding';
+import AdminLogin from './Pages/AdminLogin';
 import { useSelector } from 'react-redux';
 
 function App() {
@@ -18,9 +20,11 @@ function App() {
       <Routes>
         <Route path='/' element={<Visitor />} />
         <Route path='/cusLogin' element={<CustomerLogin />} />
+        <Route path="/adLogin" element={<AdminLogin/>}/>
         <Route path="/create-account" element={<CreateAccount />} />
         <Route path="/landingpage" element={<CustomerHome />} />
         <Route path="/spldishes" element={<SpecialDishes />} /> 
+        <Route path="/adminlanding" element={<AdminLanding />} /> 
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated}/>}>
         <Route path="/myorders" element={<YourOrders />} />
         <Route path="/mycart" element={<Cart /> }/>
