@@ -11,6 +11,7 @@ import YourOrders from './Pages/YourOrders';
 import ProtectedRoute from './Auth/ProtectedRoute';
 import AdminLanding from './Pages/AdminLanding';
 import AdminLogin from './Pages/AdminLogin';
+import CreateAdmin from './Pages/CreateAdmin';
 import { useSelector } from 'react-redux';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="/landingpage" element={<CustomerHome />} />
         <Route path="/spldishes" element={<SpecialDishes />} /> 
         <Route path="/adminlanding" element={<AdminLanding />} /> 
+        <Route path="/addadmin" element={<CreateAdmin/>}/>
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated}/>}>
         <Route path="/myorders" element={<YourOrders />} />
         <Route path="/mycart" element={<Cart /> }/>
