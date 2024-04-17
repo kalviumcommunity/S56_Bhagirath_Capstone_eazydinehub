@@ -83,13 +83,15 @@ router.get("/getadmin", verifyToken, async (req, res) => {
     const data = await admins.find({});
     res.json(data);
   } catch (error) {
-    console.error("Error fetching users:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 router.post("/adminlogin", async (req, res) => {
   const { adminEmail, adminPassword } = req.body;
   const admin = await admins.findOne({ adminEmail: adminEmail });
+  if(!admin){
+    return res.status(401).json({error:"Admin not Found"})
+  }
   const adminPasswordMatch = await bcrypt.compare(adminPassword, admin.adminPassword);
   if (!adminPasswordMatch) {
     console.log("password not matching")

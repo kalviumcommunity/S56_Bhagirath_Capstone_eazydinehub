@@ -22,6 +22,7 @@ const AdminLogin = () => {
       });
 
       if (response.status === 200) {
+        console.log(response)
         toast.success('Login successful',{
           autoClose:2000,
           onClose: () => {
