@@ -29,7 +29,15 @@ router.get("/getuser", verifyToken, async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
+router.get("/users",async (req,res)=>{
+  try {
+    const allusers = await users.find({})
+    res.json(allusers)
+  } catch (error) {
+    console.error('Error fetching user details:', error);
+    res.status(500).json({ error: 'Internal server error' })
+  }
+})
 router.post("/signup", async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -40,7 +48,6 @@ router.post("/signup", async (req, res) => {
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await users.create({ name, email, password: hashedPassword });
-    console.log(newUser);
     const token = jwt.sign(
       { userId: newUser._id, email: newUser.email },
       jwtSecret,

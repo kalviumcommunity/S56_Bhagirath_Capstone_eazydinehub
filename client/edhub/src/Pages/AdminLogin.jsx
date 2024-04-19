@@ -32,7 +32,7 @@ const AdminLogin = () => {
           }
         });
       }
-      else {
+    else {
         toast.error('Login failed');
       }
     } catch (error) {
