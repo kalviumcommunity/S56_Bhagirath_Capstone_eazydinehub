@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const { users } = require("./model.js"); 
+const { admins } = require("./model.js")
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 const jwtSecret = process.env.JWT_SECRET;
@@ -67,6 +68,39 @@ router.post("/login", async (req, res) => {
     try {
       const token = jwt.sign(
         { userId: user._id, email: user.email },
+        jwtSecret,
+        { expiresIn: "1h" }
+      );
+      res.status(200).json({ message: "Login successful", token });
+    } catch (error) {
+      console.error("Error logging in:", error);
+      res.status(501).json({ error: error.message || "Internal server error" });
+    }
+  }
+});
+router.get("/getadmin", verifyToken, async (req, res) => {
+  try {
+    const data = await admins.find({});
+    res.json(data);
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+router.post("/adminlogin", async (req, res) => {
+  const { adminEmail, adminPassword } = req.body;
+  const admin = await admins.findOne({ adminEmail: adminEmail });
+  if (!admin) {
+    return res.status(401).json({ error: "Admin not found" });
+  }
+  if (adminPassword != admin.adminPassword) {
+    console.log("password not matching")
+    return res.status(402).json({ error: "Incorrect password" });
+  }
+  else {
+    try {
+      const token = jwt.sign(
+        { adminId: admin._id, email: admin.adminEmail },
         jwtSecret,
         { expiresIn: "1h" }
       );
