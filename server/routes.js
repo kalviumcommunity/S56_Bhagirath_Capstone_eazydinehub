@@ -83,17 +83,17 @@ router.get("/getadmin", verifyToken, async (req, res) => {
     const data = await admins.find({});
     res.json(data);
   } catch (error) {
-    console.error("Error fetching users:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 router.post("/adminlogin", async (req, res) => {
   const { adminEmail, adminPassword } = req.body;
   const admin = await admins.findOne({ adminEmail: adminEmail });
-  if (!admin) {
-    return res.status(401).json({ error: "Admin not found" });
+  if(!admin){
+    return res.status(401).json({error:"Admin not found"})
   }
-  if (adminPassword != admin.adminPassword) {
+  const adminPasswordMatch = await bcrypt.compare(adminPassword, admin.adminPassword);
+  if (!adminPasswordMatch) {
     console.log("password not matching")
     return res.status(402).json({ error: "Incorrect password" });
   }
@@ -109,6 +109,35 @@ router.post("/adminlogin", async (req, res) => {
       console.error("Error logging in:", error);
       res.status(501).json({ error: error.message || "Internal server error" });
     }
+  }
+});
+router.post("/createadmin", async (req, res) => {
+  const { adminName, adminEmail, adminPassword } = req.body;
+
+  try {
+    const existingAdmin = await admins.findOne({ adminEmail: adminEmail });
+    if (existingAdmin) {
+      return res.status(400).json({ error: "Admin already exists" });
+    }
+    
+    let hashedAdminPassword;
+    try {
+      hashedAdminPassword = await bcrypt.hash(adminPassword, 10);
+    } catch (hashError) {
+      console.error("Error hashing password:", hashError);
+      return res.status(500).json({ error: "Error hashing password" });
+    }
+
+    const newAdmin = await admins.create({ adminName, adminEmail, adminPassword: hashedAdminPassword });
+    const token = jwt.sign(
+      { adminId: newAdmin._id, adminEmail: newAdmin.adminEmail },
+      jwtSecret,
+      { expiresIn: "1h" }
+    );
+    res.status(201).json({ message: "Admin created successfully", token });
+  } catch (error) {
+    console.error("Error creating user:", error);
+    res.status(500).json({ error: error.message || "Internal server error" });
   }
 });
 

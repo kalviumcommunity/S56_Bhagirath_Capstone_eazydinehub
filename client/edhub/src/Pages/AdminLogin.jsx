@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { login } from '../actions.js'; 
 import "../Stylesheets/Login.css";
 
-const CustomerLogin = () => {
+const AdminLogin = () => {
   const [adminEmail, setAdminEmail] = useState('');
   const [adminPassword, setAdminPassword] = useState('');
   const navigate = useNavigate();
@@ -21,16 +21,18 @@ const CustomerLogin = () => {
         adminPassword
       });
 
-      if (response.status === 200) {
-        toast.success('Login successful',{
-          autoClose:2000,
+      if (response.status >= 200 && response.status < 300) {
+        console.log(response);
+        toast.success('Login successful', {
+          autoClose: 2000,
           onClose: () => {
             localStorage.setItem('token', response.data.token);
-            dispatch(login()); 
-            navigate("/landingpage");
+            dispatch(login());
+            navigate("/adminlanding");
           }
         });
-      } else {
+      }
+      else {
         toast.error('Login failed');
       }
     } catch (error) {
@@ -44,13 +46,13 @@ const CustomerLogin = () => {
         <h1>EazyDine HUB</h1>
         <p>A taste you'll remember.</p>
       </div>
-      <div className="login-form">
+      <div className="login-form" style={{height:"180px"}}>
         <form onSubmit={handleSubmit}>
           <input
             type="email"
             id="email"
             name="email"
-            value={email}
+            value={adminEmail}
             onChange={(e) => setAdminEmail(e.target.value)}
             required
             placeholder="Enter your email address"
@@ -59,7 +61,7 @@ const CustomerLogin = () => {
             type="password"
             id="password"
             name="password"
-            value={password}
+            value={adminPassword}
             onChange={(e) => setAdminPassword(e.target.value)}
             required
             placeholder="Enter your password"
@@ -72,4 +74,4 @@ const CustomerLogin = () => {
   );
 };
 
-export default CustomerLogin;
+export default AdminLogin;
