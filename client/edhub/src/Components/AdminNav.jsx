@@ -18,7 +18,9 @@ function AdminNav() {
             <div className="rightNav">
               <ul>
                <li>ADD DATA</li>
+               <Link style={{ textDecoration: "none", color: "black" }} to={"/allusers"}>
                  <li>USERS</li>
+                </Link>
                <Link style={{ textDecoration: "none", color: "black" }} to={"/addadmin"}>
                  <li>ADD ADMIN</li>
                 </Link>
