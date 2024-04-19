@@ -90,7 +90,7 @@ router.post("/adminlogin", async (req, res) => {
   const { adminEmail, adminPassword } = req.body;
   const admin = await admins.findOne({ adminEmail: adminEmail });
   if(!admin){
-    return res.status(401).json({error:"Admin not Found"})
+    return res.status(401).json({error:"Admin not found"})
   }
   const adminPasswordMatch = await bcrypt.compare(adminPassword, admin.adminPassword);
   if (!adminPasswordMatch) {
@@ -119,9 +119,16 @@ router.post("/createadmin", async (req, res) => {
     if (existingAdmin) {
       return res.status(400).json({ error: "Admin already exists" });
     }
-    const hashedAdminPassword = await bcrypt.hash(adminPassword, 10);
+    
+    let hashedAdminPassword;
+    try {
+      hashedAdminPassword = await bcrypt.hash(adminPassword, 10);
+    } catch (hashError) {
+      console.error("Error hashing password:", hashError);
+      return res.status(500).json({ error: "Error hashing password" });
+    }
+
     const newAdmin = await admins.create({ adminName, adminEmail, adminPassword: hashedAdminPassword });
-    console.log(newAdmin);
     const token = jwt.sign(
       { adminId: newAdmin._id, adminEmail: newAdmin.adminEmail },
       jwtSecret,
@@ -133,4 +140,5 @@ router.post("/createadmin", async (req, res) => {
     res.status(500).json({ error: error.message || "Internal server error" });
   }
 });
+
 module.exports = router;

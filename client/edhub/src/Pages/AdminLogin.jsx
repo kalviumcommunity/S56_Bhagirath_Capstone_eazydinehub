@@ -21,17 +21,18 @@ const AdminLogin = () => {
         adminPassword
       });
 
-      if (response.status === 200) {
-        console.log(response)
-        toast.success('Login successful',{
-          autoClose:2000,
+      if (response.status >= 200 && response.status < 300) {
+        console.log(response);
+        toast.success('Login successful', {
+          autoClose: 2000,
           onClose: () => {
             localStorage.setItem('token', response.data.token);
-            dispatch(login()); 
+            dispatch(login());
             navigate("/adminlanding");
           }
         });
-      } else {
+      }
+      else {
         toast.error('Login failed');
       }
     } catch (error) {
