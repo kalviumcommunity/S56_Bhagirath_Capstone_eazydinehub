@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import "../Stylesheets/table.css"
+import "../Stylesheets/table.css";
+
 const FetchUsers = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); // State variable for error
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -13,6 +15,8 @@ const FetchUsers = () => {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching user details:', error);
+        setError('Failed to fetch users. Please try again later.'); // Set error message
+        setLoading(false); // Set loading to false
       }
     };
 
@@ -21,28 +25,30 @@ const FetchUsers = () => {
 
   return (
     <>
-    <div>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map(user => (
-              <tr key={user._id}>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
+      <div>
+        {loading ? (
+          <p>Loading...</p>
+        ) : error ? ( 
+          <p className="error">{error}</p>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
+            </thead>
+            <tbody>
+              {users.map(user => (
+                <tr key={user._id}>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
     </>
   );
 };

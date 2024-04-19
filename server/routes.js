@@ -29,15 +29,16 @@ router.get("/getuser", verifyToken, async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-router.get("/users",async (req,res)=>{
+router.get("/users", async (req, res) => {
   try {
-    const allusers = await users.find({})
-    res.json(allusers)
+    const allusers = await users.find({});
+    res.json(allusers);
   } catch (error) {
     console.error('Error fetching user details:', error);
-    res.status(500).json({ error: 'Internal server error' })
+    res.status(500).json({ error: 'Failed to fetch user details. Please try again later.' });
   }
-})
+});
+
 router.post("/signup", async (req, res) => {
   const { name, email, password } = req.body;
 

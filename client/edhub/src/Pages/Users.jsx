@@ -5,7 +5,7 @@ function Users() {
   return (
     <div>
         <AdminNav/>
-        <div style={{padding:"30px"}}><FetchUsers/></div>
+        <div style={{padding:"20px"}}><FetchUsers/></div>
     </div>
   )
 }
