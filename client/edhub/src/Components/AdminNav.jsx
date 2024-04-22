@@ -17,7 +17,6 @@ function AdminNav() {
             </div>
             <div className="rightNav">
               <ul>
-               <li>ADD DATA</li>
                <Link style={{ textDecoration: "none", color: "black" }} to={"/allusers"}>
                  <li>USERS</li>
                 </Link>
