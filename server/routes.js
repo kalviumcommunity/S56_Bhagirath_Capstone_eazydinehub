@@ -3,9 +3,12 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const { users } = require("./model.js"); 
 const { admins } = require("./model.js")
+const { dishes } = require("./model.js")
+
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 const jwtSecret = process.env.JWT_SECRET;
+
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {
@@ -146,6 +149,15 @@ router.post("/createadmin", async (req, res) => {
   } catch (error) {
     console.error("Error creating user:", error);
     res.status(500).json({ error: error.message || "Internal server error" });
+  } 
+});
+router.post("/create-dishes", async (req, res) => {
+  const { dishName, dishCategory, dishLink, dishPrice } = req.body;
+  try {
+    const newDish = await dishes.create({ dishName, dishCategory, dishLink, dishPrice });
+    res.status(201).json({ message: "Dish created successfully", newDish });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 

@@ -13,6 +13,7 @@ import AdminLanding from './Pages/AdminLanding';
 import AdminLogin from './Pages/AdminLogin';
 import CreateAdmin from './Pages/CreateAdmin';
 import Users from './Pages/Users';
+import AddDishes from './Pages/AddDishes';
 import { useSelector } from 'react-redux';
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
         <Route path="/adminlanding" element={<AdminLanding />} /> 
         <Route path="/addadmin" element={<CreateAdmin/>}/>
         <Route path="/allusers" element={<Users/>}/>
-        
+        <Route path='/adddish' element={<AddDishes/>}/>
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated}/>}>
         <Route path="/myorders" element={<YourOrders />} />
         <Route path="/mycart" element={<Cart /> }/>

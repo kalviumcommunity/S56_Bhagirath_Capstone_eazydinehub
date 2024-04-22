@@ -16,6 +16,15 @@ const adminSchema = new mongoose.Schema({
     adminPassword:String,
 })
 adminSchema.set("versionKey",false)
-const admins = mongoose.model("adminlogins",adminSchema)
 
-module.exports = {users,admins}
+const admins = mongoose.model("adminlogins",adminSchema)
+const dishSchema = new mongoose.Schema({
+    dishName:String,
+    dishCategory:String,
+    dishLink:String,
+    dishPrice:String,
+})
+dishSchema.set("versionKey",false)
+const dishes = mongoose.model("alldishes",dishSchema)
+
+module.exports = {users,admins,dishes}
