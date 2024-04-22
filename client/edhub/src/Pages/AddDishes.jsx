@@ -4,8 +4,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "../Stylesheets/Signup.css";
 import axios from "axios";
-
+import { useNavigate } from 'react-router-dom';
 const AddDishes = () => {
+  const navigate = useNavigate()
   const [dishName, setDishName] = useState('');
   const [dishCategory, setDishCategory] = useState('');
   const [dishLink, setDishLink] = useState('');
@@ -23,7 +24,12 @@ const AddDishes = () => {
     .then(response => {
       const data = response.data;
       if (response.status === 201) {
-        toast.success(data.message);
+        toast.success(data.message,{
+          autoClose:2000,
+          onClose: () => {
+            navigate("/adminlanding");
+          }
+        });
       } else {
         toast.error(data.error);
       }
@@ -76,7 +82,7 @@ const AddDishes = () => {
             value={dishPrice}
             onChange={(e) => setDishPrice(e.target.value)}
             required
-            placeholder="Enter image Price"
+            placeholder="Enter dish Price"
           />
           <button type="submit">Create Dish</button>
         </form>
