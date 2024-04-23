@@ -168,4 +168,10 @@ router.get('/dishes/softdrinks', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+router.delete("/delete/:_id",async(req,res)=>{
+  const id = req.params._id;
+  console.log(id)
+  let del = await dishes.findByIdAndDelete({_id:id})
+  res.send(del)
+})
 module.exports = router;
