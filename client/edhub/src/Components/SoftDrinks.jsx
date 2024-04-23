@@ -16,7 +16,7 @@ function SoftDrinks() {
 
     fetchDishes();
   }, []);
-
+  console.log(dishes)
   return (
     <div>
       <h2>Soft Drinks</h2>
