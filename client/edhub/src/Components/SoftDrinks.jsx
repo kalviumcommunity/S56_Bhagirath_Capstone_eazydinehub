@@ -63,6 +63,7 @@ export function EditSoftDrinks() {
   }, []);
   const handleClick = async (dishId) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this soft drink?');
+    console.log(confirmDelete)
     if (confirmDelete) {
       try {
         await axios.delete(`https://s56-bhagirath-capstone-eazydinehub.onrender.com/delete/${dishId}`);
