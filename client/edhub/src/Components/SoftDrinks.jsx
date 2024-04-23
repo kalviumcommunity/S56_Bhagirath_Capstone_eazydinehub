@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import "../Stylesheets/dish.css"
 function SoftDrinks() {
   const [dishes, setDishes] = useState([]);
 
@@ -17,18 +17,26 @@ function SoftDrinks() {
 
     fetchDishes();
   }, []);
-  console.log(dishes)
+
+  const addToCart = (dish) => {
+    console.log('Added to cart:', dish);
+  };
+
   return (
     <div>
-      <h2>Soft Drinks</h2>
+      <h2 style={{textAlign:"center",marginTop:"15px"}}>Soft Drinks</h2>
       <div className="dish-list">
         {dishes.map((dish, index) => (
           <div className="dish-card" key={index}>
-            <img src={dish.image} alt={dish.dishName} />
+            <div
+              className="dish-image"
+              style={{ backgroundImage: `url(${dish.dishLink})` }}
+            ></div>
             <div className="dish-details">
               <h3>{dish.dishName}</h3>
-              <p><strong>Price:</strong> {dish.dishPrice}</p>
+              <h3>Rs. {dish.dishPrice}</h3>
             </div>
+              <button onClick={() => addToCart(dish)}>Add to Cart</button>
           </div>
         ))}
       </div>
