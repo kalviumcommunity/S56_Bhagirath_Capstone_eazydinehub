@@ -162,7 +162,7 @@ router.post("/create-dishes", async (req, res) => {
 });
 router.get('/dishes/softdrinks', async (req, res) => {
   try {
-    const softdrinksDishes = await dishes.find({ dishCategory: 'softdrinks' });
+    const softdrinksDishes = await dishes.find({ dishCategory: 'Soft Drinks' });
     res.json(softdrinksDishes);
   } catch (err) {
     res.status(500).json({ message: err.message });
