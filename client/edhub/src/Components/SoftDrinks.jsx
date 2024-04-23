@@ -62,14 +62,18 @@ export function EditSoftDrinks() {
     fetchDishes();
   }, []);
   const handleClick = async (dishId) => {
-    try {
-      await axios.delete(`https://s56-bhagirath-capstone-eazydinehub.onrender.com/delete/${dishId}`);
-      console.log('Soft drink deleted successfully');
-      window.location.reload()
-    } catch (error) {
-      console.error('Error deleting soft drink:', error);
+    const confirmDelete = window.confirm('Are you sure you want to delete this soft drink?');
+    if (confirmDelete) {
+      try {
+        await axios.delete(`https://s56-bhagirath-capstone-eazydinehub.onrender.com/delete/${dishId}`);
+        console.log('Soft drink deleted successfully');
+        window.location.reload();
+      } catch (error) {
+        console.error('Error deleting soft drink:', error);
+      }
     }
   };
+  
 
   return (
     <div>
