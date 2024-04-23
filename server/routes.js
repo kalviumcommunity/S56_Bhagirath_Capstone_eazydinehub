@@ -168,4 +168,21 @@ router.get('/dishes/softdrinks', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+router.delete("/delete/:_id", async (req, res) => {
+  try {
+    const id = req.params._id;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: 'Invalid ID format' });
+    }
+    const deletedSoftDrink = await dishes.findByIdAndDelete(id);
+
+    if (!deletedSoftDrink) {
+      return res.status(404).json({ message: 'Soft drink not found' });
+    }
+    res.status(200).json({ message: 'Soft drink deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting soft drink:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 module.exports = router;
