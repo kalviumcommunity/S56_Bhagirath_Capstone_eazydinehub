@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "../Stylesheets/dish.css"
+import "../Stylesheets/Modal.css"
 export function SoftDrinks() {
   const [dishes, setDishes] = useState([]);
 
@@ -47,7 +48,11 @@ export function SoftDrinks() {
 
 export function EditSoftDrinks() {
   const [dishes, setDishes] = useState([]);
-
+  const [showModal, setShowModal] = useState(false);
+  const [editingDish, setEditingDish] = useState(null);
+  const [updatedName, setUpdatedName] = useState('');
+  const [updatedPrice, setUpdatedPrice] = useState('')
+  const [updatedLink,setUpdatedLink] = useState('')
   useEffect(() => {
     async function fetchDishes() {
       try {
@@ -74,7 +79,35 @@ export function EditSoftDrinks() {
       }
     }
   };
-  
+  const handleEdit = (dish) => {
+    setEditingDish(dish);
+    setUpdatedName(dish.dishName);
+    setUpdatedPrice(dish.dishPrice);
+    setUpdatedLink(dish.dishLink)
+    setShowModal(true); 
+  };
+  const handleUpdate = async () => {
+    console.log(editingDish)
+    try {
+      const response = await axios.put(`https://s56-bhagirath-capstone-eazydinehub.onrender.com/updatedish/${editingDish._id}`, {
+        dishName: updatedName,
+        dishLink: updatedLink,
+        dishPrice: updatedPrice,
+      });
+      console.log(updatedName)
+      console.log(updatedPrice)
+      console.log('Update response:', response.data);
+      setEditingDish(null);
+      setShowModal(false);
+      window.location.reload(); 
+    } catch (error) {
+      console.error('Error updating dish:', error.message);
+    }
+  };
+  const handleCancelEdit = () => {
+    setEditingDish(null);
+    setShowModal(false); 
+  };
 
   return (
     <div>
@@ -90,11 +123,35 @@ export function EditSoftDrinks() {
               <h3>{dish.dishName}</h3>
               <h3>Rs. {dish.dishPrice}</h3>
             </div>
-            <button style={{backgroundColor:"green"}}>EDIT</button>
+            <button style={{backgroundColor:"green"}} onClick={() => handleEdit(dish)}>EDIT</button>
             <button style={{backgroundColor:"red"}} onClick={()=>handleClick(dish._id)}>DELETE</button>
           </div>
         ))}
       </div>
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={handleCancelEdit}>&times;</span>
+            <h2>Edit Soft Drink</h2>
+            <input
+              type="text"
+              value={updatedName}
+              onChange={(e) => setUpdatedName(e.target.value)}
+            />
+            <input
+              type="text"
+              value={updatedPrice}
+              onChange={(e) => setUpdatedPrice(e.target.value)}
+            />
+            <input
+              type="text"
+              value={updatedLink}
+              onChange={(e) => setUpdatedLink(e.target.value)}
+            />
+            <button onClick={handleUpdate}>Save</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

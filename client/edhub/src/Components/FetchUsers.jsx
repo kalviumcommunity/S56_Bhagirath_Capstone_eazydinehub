@@ -5,7 +5,7 @@ import "../Stylesheets/table.css";
 const FetchUsers = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); // State variable for error
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -15,8 +15,8 @@ const FetchUsers = () => {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching user details:', error);
-        setError('Failed to fetch users. Please try again later.'); // Set error message
-        setLoading(false); // Set loading to false
+        setError('Failed to fetch users. Please try again later.'); 
+        setLoading(false); 
       }
     };
 
