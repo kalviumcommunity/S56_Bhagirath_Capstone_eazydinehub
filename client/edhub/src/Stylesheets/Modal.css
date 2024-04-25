@@ -1,0 +1,71 @@
+.modal {
+    display: block; 
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); 
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* Input styles */
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  /* Button styles */
+  button {
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    transition: background-color 0.3s;
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
+  button:hover {
+    background-color: #45a049; /* Darker green */
+  }
+  
+  button:active {
+    transform: translateY(1px);
+  }
+  

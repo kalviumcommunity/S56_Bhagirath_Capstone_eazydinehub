@@ -186,4 +186,27 @@ router.delete("/delete/:_id", async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+router.put('/updatedish/:_id', async (req, res) => {
+  const { _id: dishId } = req.params;
+  const { dishName, dishLink, dishPrice, dishCategory } = req.body;
+  
+  try {
+    const resDish = await dishes.findByIdAndUpdate(dishId, {
+      dishName,
+      dishCategory,
+      dishLink,
+      dishPrice
+    }, { new: true });
+
+    if (!resDish) {
+      return res.status(404).json({ message: 'Dish not found' });
+    }
+    res.json(resDish);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+
 module.exports = router;

@@ -69,7 +69,7 @@ const AdminLogin = () => {
           <button type="submit">Log In</button>
         </form>
       </div>
-      <ToastContainer position='top-center'/> 
+      <ToastContainer position='top-center' style={{width:"300px"}}/> 
     </div>
   );
 };
