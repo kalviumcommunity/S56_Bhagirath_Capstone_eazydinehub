@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "../Stylesheets/dish.css"
 import "../Stylesheets/Modal.css"
+
 export function SoftDrinks() {
   const [dishes, setDishes] = useState([]);
 
@@ -37,14 +38,13 @@ export function SoftDrinks() {
               <h3>{dish.dishName}</h3>
               <h3>Rs. {dish.dishPrice}</h3>
             </div>
-              <button onClick={() => addToCart(dish)}>Add to Cart</button>
+            <button onClick={() => addToCart(dish)}>Add to Cart</button>
           </div>
         ))}
       </div>
     </div>
   );
 }
-
 
 export function EditSoftDrinks() {
   const [dishes, setDishes] = useState([]);
@@ -53,6 +53,8 @@ export function EditSoftDrinks() {
   const [updatedName, setUpdatedName] = useState('');
   const [updatedPrice, setUpdatedPrice] = useState('')
   const [updatedLink,setUpdatedLink] = useState('')
+  const [isUpdating, setIsUpdating] = useState(false); // State to track update operation
+
   useEffect(() => {
     async function fetchDishes() {
       try {
@@ -66,6 +68,7 @@ export function EditSoftDrinks() {
 
     fetchDishes();
   }, []);
+
   const handleClick = async (dishId) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this soft drink?');
     console.log(confirmDelete)
@@ -79,6 +82,7 @@ export function EditSoftDrinks() {
       }
     }
   };
+
   const handleEdit = (dish) => {
     setEditingDish(dish);
     setUpdatedName(dish.dishName);
@@ -86,10 +90,14 @@ export function EditSoftDrinks() {
     setUpdatedLink(dish.dishLink)
     setShowModal(true); 
   };
+
   const handleUpdate = async () => {
-    console.log(editingDish)
+    if (isUpdating) return; 
+
+    setIsUpdating(true);
+
     try {
-      const response = await axios.put(`https://s56-bhagirath-capstone-eazydinehub.onrender.com/updatedish/${editingDish._id}`, {
+      const response = await axios.put(`http://localhost:3200/updatedish/${editingDish._id}`, {
         dishName: updatedName,
         dishLink: updatedLink,
         dishPrice: updatedPrice,
@@ -102,8 +110,11 @@ export function EditSoftDrinks() {
       window.location.reload(); 
     } catch (error) {
       console.error('Error updating dish:', error.message);
+    } finally {
+      setIsUpdating(false);
     }
   };
+
   const handleCancelEdit = () => {
     setEditingDish(null);
     setShowModal(false); 
@@ -123,7 +134,9 @@ export function EditSoftDrinks() {
               <h3>{dish.dishName}</h3>
               <h3>Rs. {dish.dishPrice}</h3>
             </div>
-            <button style={{backgroundColor:"green"}} onClick={() => handleEdit(dish)}>EDIT</button>
+            <button style={{backgroundColor:"green"}} onClick={() => handleEdit(dish)} disabled={isUpdating}>
+              {isUpdating && editingDish === dish ? 'Updating...' : 'EDIT'}
+            </button>
             <button style={{backgroundColor:"red"}} onClick={()=>handleClick(dish._id)}>DELETE</button>
           </div>
         ))}
@@ -155,4 +168,3 @@ export function EditSoftDrinks() {
     </div>
   );
 }
-

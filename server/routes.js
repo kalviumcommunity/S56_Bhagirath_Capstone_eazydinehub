@@ -187,15 +187,15 @@ router.delete("/delete/:_id", async (req, res) => {
   }
 });
 router.put('/updatedish/:_id', async (req, res) => {
-  const dishId = req.params._id;
-  const { dishName, dishLink, dishPrice,dishCategory } = req.body;
-  console.log(dishId,req.body)
+  const { _id: dishId } = req.params;
+  const { dishName, dishLink, dishPrice, dishCategory } = req.body;
+  
   try {
     const resDish = await dishes.findByIdAndUpdate(dishId, {
-      dishName: dishName,
-      dishCategory:dishCategory,
-      dishLink: dishLink,
-      dishPrice: dishPrice
+      dishName,
+      dishCategory,
+      dishLink,
+      dishPrice
     }, { new: true });
 
     if (!resDish) {
@@ -207,5 +207,6 @@ router.put('/updatedish/:_id', async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
 
 module.exports = router;
