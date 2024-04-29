@@ -130,7 +130,7 @@ export function EditBurgers() {
 
   return (
     <div>
-      <h2 style={{textAlign:"center",marginTop:"15px"}}>Soft Drinks</h2>
+      <h2 style={{textAlign:"center",marginTop:"15px"}}>Burgers</h2>
       <div className="dish-list">
         {dishes.map((dish, index) => (
           <div className="dish-card" key={index}>
