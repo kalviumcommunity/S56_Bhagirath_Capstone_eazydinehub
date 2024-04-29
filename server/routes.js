@@ -177,6 +177,14 @@ router.get('/dishes/burgers', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+router.get('/dishes/pizzas', async (req, res) => {
+  try {
+    const pizzas = await dishes.find({ dishCategory: 'Pizza' });
+    res.json(pizzas);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 router.delete("/delete/:_id", async (req, res) => {
   try {
     const id = req.params._id;
