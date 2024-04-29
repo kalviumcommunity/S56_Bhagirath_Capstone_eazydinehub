@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "../Stylesheets/dish.css"
 import "../Stylesheets/Modal.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
+
 
 export function SoftDrinks() {
   const [dishes, setDishes] = useState([]);
@@ -35,10 +39,14 @@ export function SoftDrinks() {
               style={{ backgroundImage: `url(${dish.dishLink})` }}
             ></div>
             <div className="dish-details">
-              <h3>{dish.dishName}</h3>
+              <div className="name">
+              <h3>{dish.dishName.toUpperCase()}</h3>
+              </div>
+              <div className="price">
               <h3>Rs. {dish.dishPrice}</h3>
+              <button onClick={() => addToCart(dish)}>Add to Cart</button>
+              </div>
             </div>
-            <button onClick={() => addToCart(dish)}>Add to Cart</button>
           </div>
         ))}
       </div>
@@ -53,7 +61,7 @@ export function EditSoftDrinks() {
   const [updatedName, setUpdatedName] = useState('');
   const [updatedPrice, setUpdatedPrice] = useState('')
   const [updatedLink,setUpdatedLink] = useState('')
-  const [isUpdating, setIsUpdating] = useState(false); // State to track update operation
+  const [isUpdating, setIsUpdating] = useState(false); 
 
   useEffect(() => {
     async function fetchDishes() {
@@ -128,16 +136,22 @@ export function EditSoftDrinks() {
           <div className="dish-card" key={index}>
             <div
               className="dish-image"
-              style={{ backgroundImage: `url(${dish.dishLink})` }}
-            ></div>
-            <div className="dish-details">
-              <h3>{dish.dishName}</h3>
-              <h3>Rs. {dish.dishPrice}</h3>
+            >
+              <img src={dish.dishLink}/>
             </div>
-            <button style={{backgroundColor:"green"}} onClick={() => handleEdit(dish)} disabled={isUpdating}>
-              {isUpdating && editingDish === dish ? 'Updating...' : 'EDIT'}
+            <div className="dish-details">
+              <div className="dishname">
+              <p>{dish.dishName.toUpperCase()}</p>
+              </div>
+              <div className="price">
+              <h2>Rs. {dish.dishPrice}</h2>
+              <div className="buttons">
+            <button style={{backgroundColor:"green",marginTop:"0px"}} onClick={() => handleEdit(dish)} disabled={isUpdating}>
+              {isUpdating && editingDish === dish ? 'Updating...' : <FontAwesomeIcon icon={faPen} />}
             </button>
-            <button style={{backgroundColor:"red"}} onClick={()=>handleClick(dish._id)}>DELETE</button>
+            <button style={{backgroundColor:"red",marginTop:"0px"}} onClick={()=>handleClick(dish._id)}><FontAwesomeIcon icon={faTrash} /></button></div>
+              </div>
+            </div>
           </div>
         ))}
       </div>
