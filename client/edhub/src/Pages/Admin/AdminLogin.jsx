@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { login } from '../actions.js'; 
+import { login } from '../../actions.js'; 
 import "../Stylesheets/Login.css";
 
 const AdminLogin = () => {

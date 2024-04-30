@@ -26,6 +26,9 @@ function AdminNav() {
                <Link style={{ textDecoration: "none", color: "black" }} to={"/addadmin"}>
                  <li>ADD ADMIN</li>
                 </Link>
+               <Link style={{ textDecoration: "none", color: "black" }} to={"/addchef"}>
+                 <li>ADD CHEF</li>
+                </Link>
               </ul>
             </div>
           </nav>
