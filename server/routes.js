@@ -5,6 +5,7 @@ const mongoose = require("mongoose")
 const { users } = require("./model.js"); 
 const { admins } = require("./model.js")
 const { dishes } = require("./model.js")
+const { chefs } = require("./model.js")
 
 const bcrypt = require('bcrypt');
 require('dotenv').config();
@@ -224,5 +225,60 @@ router.put('/updatedish/:_id', async (req, res) => {
   }
 });
 
+router.post("/cheflogin", async (req, res) => {
+  const { chefEmail, chefPassword } = req.body;
+  const chef = await chefs.findOne({ chefEmail: chefEmail });
+  if(!chef){
+    return res.status(401).json({error:"Chef not found"})
+  }
+  const chefPasswordMatch = await bcrypt.compare(chefPassword, chef.chefPassword);
+  if (!chefPasswordMatch) {
+    console.log("password not matching")
+    return res.status(402).json({ error: "Incorrect password" });
+  }
+  else {
+    try {
+      const token = jwt.sign(
+        { chefId: chef._id, chefEmail: chef.chefEmail },
+        jwtSecret,
+        { expiresIn: "1h" }
+      );
+      res.status(200).json({ message: "Login successful", token });
+    } catch (error) {
+      console.error("Error logging in:", error);
+      res.status(501).json({ error: error.message || "Internal server error" });
+    }
+  }
+});
+
+router.post("/createchef", async (req, res) => {
+  const { chefName, chefEmail, chefPassword } = req.body;
+
+  try {
+    const existingChef = await chefs.findOne({ chefEmail: chefEmail });
+    if (existingChef) {
+      return res.status(400).json({ error: "Chef already exists" });
+    }
+    
+    let hashedChefPassword;
+    try {
+      hashedChefPassword = await bcrypt.hash(chefPassword, 10);
+    } catch (hashError) {
+      console.error("Error hashing password:", hashError);
+      return res.status(500).json({ error: "Error hashing password" });
+    }
+
+    const newChef = await chefs.create({ chefName, chefEmail, chefPassword: hashedChefPassword });
+    const token = jwt.sign(
+      { chefId: newChef._id, chefEmail: newChef.chefEmail },
+      jwtSecret,
+      { expiresIn: "1h" }
+    );
+    res.status(201).json({ message: "Chef created successfully", token });
+  } catch (error) {
+    console.error("Error creating chef:", error);
+    res.status(500).json({ error: error.message || "Internal server error" });
+  } 
+});
 
 module.exports = router;

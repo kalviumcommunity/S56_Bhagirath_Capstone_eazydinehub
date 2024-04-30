@@ -1,7 +1,7 @@
 import React from 'react';
-import Navbar from '../Components/Navbar';
+import Navbar from '../Components/Navbar.jsx';
 import { useDispatch } from 'react-redux';
-import {logout} from "../actions.js"
+import {logout} from "../../actions.js"
 import { useNavigate } from 'react-router-dom';
 function CustomerProfile() {
   const dispatch = useDispatch();
