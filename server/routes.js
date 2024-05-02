@@ -238,7 +238,12 @@ router.post("/cheflogin", async (req, res) => {
   }
   else {
     try {
-      res.status(200).json({ message: "Login successful" });
+      const token = jwt.sign(
+        { chefId: chef._id, chefEmail: chef.chefEmail },
+        jwtSecret,
+        { expiresIn: "1h" }
+      );
+      res.status(200).json({ message: "Login successful",token });
     } catch (error) {
       console.error("Error logging in:", error);
       res.status(501).json({ error: error.message || "Internal server error" });
