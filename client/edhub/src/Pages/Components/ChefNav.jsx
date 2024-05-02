@@ -12,7 +12,7 @@ function Navbar() {
           <div className="logo">
               <img src={edhlogo} alt="EDH Logo" />
           </div>
-            <div key={index} className="spl">
+            <div className="spl">
               CHEF'S AREA
             </div>
         </div>

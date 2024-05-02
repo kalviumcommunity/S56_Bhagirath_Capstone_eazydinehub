@@ -22,17 +22,21 @@ const AdminLogin = () => {
       });
 
       if (response.status >= 200 && response.status < 300) {
-        console.log(response);
+        console.log('hii');
         toast.success('Login successful', {
           autoClose: 2000,
           onClose: () => {
-            localStorage.setItem('token', response.data.token);
+            sessionStorage.setItem('token', response.data.token);
             dispatch(login());
-            navigate("/adminlanding");
+            const token = sessionStorage.getItem("token");
+            // console.log(token,sessionStorage)+
           }
         });
-      }
-    else {
+      }else if(token){
+        console.log('hii1');
+		navigate("/adminlanding");
+	  } else {
+        console.log('hii2');
         toast.error('Login failed');
       }
     } catch (error) {

@@ -30,23 +30,23 @@ export function Pizzas() {
 
   return (
     <div>
-      <h2 style={{textAlign:"center",marginTop:"15px"}}>Pizzas</h2>
+     <h2 style={{textAlign:"center",marginTop:"15px"}}>Soft Drinks</h2>
       <div className="dish-list">
         {dishes.map((dish, index) => (
           <div className="dish-card" key={index}>
             <div
               className="dish-image"
-              style={{ backgroundImage: `url(${dish.dishLink})` }}
-            ></div>
+            >
+              <img src={dish.dishLink}/>
+            </div>
             <div className="dish-details">
-              <div className="name">
-              <h3>{dish.dishName.toUpperCase()}</h3>
+              <div className="dishname">
+              <p>{dish.dishName.toUpperCase()}</p>
               </div>
               <div className="price">
-              <h3>Rs. {dish.dishPrice}</h3>
-              <button onClick={() => addToCart(dish)}>Add to Cart</button>
+              <h2>Rs. {dish.dishPrice}</h2>
+              <button style={{backgroundColor:"red",marginTop:"0px",width:"50%"}} onClick={()=>addToCart()}>ADD</button></div>
               </div>
-            </div>
           </div>
         ))}
       </div>
