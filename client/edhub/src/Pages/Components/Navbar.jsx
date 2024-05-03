@@ -2,7 +2,7 @@ import React from 'react';
 import "../Stylesheets/Nav.css";
 import edhlogo from "../assets/edhlogo.png";
 import { Link } from "react-router-dom";
-
+import { useAuth0 } from "@auth0/auth0-react";
 function Navbar() {
   const navLinks = [
     { to: "/spldishes", text: "SPECIAL DISHES" },
@@ -10,7 +10,7 @@ function Navbar() {
     { to: "/mycart", text: "CART" },
     { to: "/myprofile", text: "PROFILE" }
   ];
-
+  const {user,loginWithRedirect,isAuthenticated,logout} = useAuth0()
   return (
     <div>
       <nav style={{ padding: "15px" }}>
@@ -33,6 +33,8 @@ function Navbar() {
             {navLinks.slice(1).map((link, index) => (
               <li key={index}><Link style={{ textDecoration: "none", color: "black" }} to={link.to}>{link.text}</Link></li>
             ))}
+          <li>
+            {isAuthenticated ? <p onClick={e => logout()}>LOGOUT</p> : <p onClick={e => loginWithRedirect()}>LOGIN</p>}</li>
           </ul>
         </div>
       </nav>

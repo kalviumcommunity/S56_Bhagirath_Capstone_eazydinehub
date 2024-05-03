@@ -8,19 +8,20 @@ import SpecialDishes from './Pages/Customer/SpecialDishes';
 import Cart from './Pages/Customer/Cart';
 import CustomerProfile from './Pages/Customer/CustomerProfile';
 import YourOrders from './Pages/Customer/YourOrders';
-import ProtectedRoute from './Auth/ProtectedRoute';
 import AdminLanding from './Pages/Admin/AdminLanding';
 import AdminLogin from './Pages/Admin/AdminLogin';
 import CreateAdmin from './Pages/Admin/CreateAdmin';
 import Users from './Pages/Admin/Users';
 import AddDishes from './Pages/Admin/AddDishes';
-import { useSelector } from 'react-redux';
 import CreateChef from './Pages/Admin/Createchef';
 import ChefLogin from './Pages/Chef/ChefLogin';
 import ChefHome from './Pages/Chef/ChefHome';
+import { useAuth0 } from '@auth0/auth0-react';
 function App() {
-  const {isAuthenticated} = useSelector((state) => state.root)
-  
+  const {user,isAuthenticated} = useAuth0()
+  if(isAuthenticated){
+    console.log(user)
+  }
   return (
     <Router>
       <Routes>
@@ -37,11 +38,9 @@ function App() {
         <Route path='/addchef' element={<CreateChef/>}/>
         <Route path='/cheflogin' element={<ChefLogin/>}/>
         <Route path='/chefhome' element={<ChefHome/>}/>
-        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated}/>}>
         <Route path="/myorders" element={<YourOrders />} />
         <Route path="/mycart" element={<Cart /> }/>
         <Route path="/myprofile" element={<CustomerProfile/>} />
-        </Route>
       </Routes>
     </Router>
   );

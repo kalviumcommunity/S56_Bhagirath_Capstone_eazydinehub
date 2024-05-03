@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,8 +10,6 @@ const CustomerLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const dispatch = useDispatch(); 
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -65,6 +62,8 @@ const CustomerLogin = () => {
             placeholder="Enter your password"
           />
           <button type="submit">Log In</button>
+          <p>OR</p>
+          <button onClick={e => loginWithRedirect()}>Login with Google</button>
           <p>OR</p>
           <Link to="/create-account" style={{ textDecoration: 'none' }}>
             <button style={{ background: "#008000" }}>Create New Account</button>
