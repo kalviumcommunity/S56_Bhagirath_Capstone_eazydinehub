@@ -11,6 +11,7 @@ function Navbar() {
     { to: "/myprofile", text: "PROFILE" }
   ];
   const {user,loginWithRedirect,isAuthenticated,logout} = useAuth0()
+  console.log(user)
   return (
     <div>
       <nav style={{ padding: "15px" }}>
