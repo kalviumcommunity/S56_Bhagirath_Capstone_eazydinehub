@@ -4,7 +4,7 @@ import App from './App.jsx'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Auth0Provider } from '@auth0/auth0-react';
-const landingpage = "https://eazydinehub.netlify.app/landingpage"
+const landingpage = "https://edhub-ebfr98lqa-bhagirathautis-projects.vercel.app//landingpage"
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
 <Auth0Provider
