@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { login } from '../../actions.js'; 
 import "../Stylesheets/Login.css";
 
 const ChefLogin = () => {
   const [chefEmail, setchefEmail] = useState('');
   const [chefPassword, setchefPassword] = useState('');
   const navigate = useNavigate();
-  const dispatch = useDispatch(); 
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +24,6 @@ const ChefLogin = () => {
           autoClose: 2000,
           onClose: () => {
             localStorage.setItem('token', response.data.token);
-            dispatch(login());
             navigate("/chefhome");
           }
         });

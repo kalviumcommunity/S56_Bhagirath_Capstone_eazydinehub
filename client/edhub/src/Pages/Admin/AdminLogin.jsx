@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { login } from '../../actions.js'; 
 import "../Stylesheets/Login.css";
 
 const AdminLogin = () => {
   const [adminEmail, setAdminEmail] = useState('');
   const [adminPassword, setAdminPassword] = useState('');
   const navigate = useNavigate();
-  const dispatch = useDispatch(); 
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,9 +24,7 @@ const AdminLogin = () => {
           autoClose: 2000,
           onClose: () => {
             sessionStorage.setItem('token', response.data.token);
-            dispatch(login());
             const token = sessionStorage.getItem("token");
-            // console.log(token,sessionStorage)+
           }
         });
       }else if(token){
