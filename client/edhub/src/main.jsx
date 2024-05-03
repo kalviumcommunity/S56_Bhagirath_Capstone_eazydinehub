@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Auth0Provider } from '@auth0/auth0-react';
 
-const landingpage = "http://localhost:5173/landingpage"
+const landingpage = "https://eazydinehub.netlify.app/landingpage"
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
 <Auth0Provider
