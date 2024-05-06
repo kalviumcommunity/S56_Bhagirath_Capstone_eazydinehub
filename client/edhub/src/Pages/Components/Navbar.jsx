@@ -2,16 +2,13 @@ import React from 'react';
 import "../Stylesheets/Nav.css";
 import edhlogo from "../assets/edhlogo.png";
 import { Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 function Navbar() {
   const navLinks = [
     { to: "/spldishes", text: "SPECIAL DISHES" },
     { to: "/myorders", text: "MY ORDERS" },
     { to: "/mycart", text: "CART" },
-    { to: "/myprofile", text: "PROFILE" }
   ];
-  const {user,loginWithRedirect,isAuthenticated,logout} = useAuth0()
-  console.log(user)
   return (
     <div>
       <nav style={{ padding: "15px" }}>
@@ -32,10 +29,16 @@ function Navbar() {
         <div className="rightNav">
           <ul>
             {navLinks.slice(1).map((link, index) => (
-              <li key={index}><Link style={{ textDecoration: "none", color: "black" }} to={link.to}>{link.text}</Link></li>
+              <li key={index}><Link style={{ textDecoration: "none", color: "black" }} to={link.to}> <button> {link.text}</button></Link></li>
             ))}
           <li>
-            {isAuthenticated ? <p onClick={e => logout()}>LOGOUT</p> : <p onClick={e => loginWithRedirect()}>LOGIN</p>}</li>
+          <SignedOut>
+        <SignInButton style={{textTransform:"uppercase"}} />
+      </SignedOut>
+      <SignedIn>
+        <UserButton/>
+      </SignedIn>
+          </li>
           </ul>
         </div>
       </nav>
