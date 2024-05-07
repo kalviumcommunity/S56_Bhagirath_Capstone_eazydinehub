@@ -2,8 +2,11 @@ import React from 'react';
 import "../Stylesheets/Nav.css";
 import edhlogo from "../assets/edhlogo.png";
 import { Link } from "react-router-dom";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+import { SignedIn, SignedOut, SignInButton, UserButton} from "@clerk/clerk-react";
+import {useUser} from "@clerk/clerk-react"
 function Navbar() {
+  const user = useUser()
+  console.log(user)
   const navLinks = [
     { to: "/spldishes", text: "SPECIAL DISHES" },
     { to: "/myorders", text: "MY ORDERS" },
