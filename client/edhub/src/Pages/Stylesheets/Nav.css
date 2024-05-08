@@ -45,16 +45,18 @@
   }
   
   .rightNav ul li {
-    margin: 0px 15px 0px 15px;
+    margin: 0px 10px 0px 10px;
     font-size: var(--font-size);
     cursor: pointer;
   }
   
   .rightNav ul li button {
+    margin: 0px;
     font-family: var(--font-family);
     font-weight: 400;
     font-style: normal;
     outline: none;
+    width: auto;
     background-color: var(--secondary-color);
     border: none;
     font-size: var(--font-size);

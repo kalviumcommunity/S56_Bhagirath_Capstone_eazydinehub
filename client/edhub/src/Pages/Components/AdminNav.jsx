@@ -18,16 +18,16 @@ function AdminNav() {
             <div className="rightNav">
               <ul>
                <Link style={{ textDecoration: "none", color: "black" }} to={"/adddish"}>
-                 <li>ADD DISH</li>
+                 <li><button>ADD DISH</button></li>
                 </Link>
                <Link style={{ textDecoration: "none", color: "black" }} to={"/allusers"}>
-                 <li>USERS</li>
+                 <li><button>USERS</button></li>
                 </Link>
                <Link style={{ textDecoration: "none", color: "black" }} to={"/addadmin"}>
-                 <li>ADD ADMIN</li>
+                 <li><button>ADD ADMIN</button></li>
                 </Link>
                <Link style={{ textDecoration: "none", color: "black" }} to={"/addchef"}>
-                 <li>ADD CHEF</li>
+                 <li><button>ADD CHEF</button></li>
                 </Link>
               </ul>
             </div>

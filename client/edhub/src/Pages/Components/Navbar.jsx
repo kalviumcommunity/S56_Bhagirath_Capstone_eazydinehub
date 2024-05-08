@@ -32,7 +32,7 @@ function Navbar() {
         <div className="rightNav">
           <ul>
             {navLinks.slice(1).map((link, index) => (
-              <li key={index}><Link style={{ textDecoration: "none", color: "black" }} to={link.to}>{link.text}</Link></li>
+              <li key={index}><Link style={{ textDecoration: "none", color: "black" }} to={link.to}><button>{link.text}</button></Link></li>
             ))}
           <li>
             {isAuthenticated ? <p onClick={e => logout()}>LOGOUT</p> : <p onClick={e => loginWithRedirect()}>LOGIN</p>}</li>

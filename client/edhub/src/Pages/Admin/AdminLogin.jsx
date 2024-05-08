@@ -25,17 +25,21 @@ const AdminLogin = () => {
           onClose: () => {
             sessionStorage.setItem('token', response.data.token);
             const token = sessionStorage.getItem("token");
+            if(token){
+              navigate("/adminlanding")
+            }
           }
         });
-      }else if(token){
+      }
+      if(token){
         console.log('hii1');
-		navigate("/adminlanding");
+		    navigate("/adminlanding");
 	  } else {
         console.log('hii2');
         toast.error('Login failed');
       }
     } catch (error) {
-      toast.error(error.response.data.error);
+      toast.error(error.error);
     }
   }
  
