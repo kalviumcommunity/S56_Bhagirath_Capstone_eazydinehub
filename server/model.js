@@ -34,5 +34,13 @@ const dishSchema = new mongoose.Schema({
 })
 dishSchema.set("versionKey",false)
 const dishes = mongoose.model("alldishes",dishSchema)
+const cartSchema = new mongoose.Schema({
+    cartName:String,
+    cartCategory:String,
+    cartLink:String,
+    cartPrice:String,
+})
+cartSchema.set("versionKey",false)
+const cartitems = mongoose.model("cartitems",cartSchema)
 
-module.exports = {users,admins,dishes,chefs}
+module.exports = {users,admins,dishes,chefs,cartitems}

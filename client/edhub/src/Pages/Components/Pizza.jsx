@@ -9,12 +9,12 @@ import { faPen } from '@fortawesome/free-solid-svg-icons';
 
 export function Pizzas() {
   const [dishes, setDishes] = useState([]);
+  const [cart,setCart] = useState([])
 
   useEffect(() => {
     async function fetchDishes() {
       try {
         const response = await axios.get('https://s56-bhagirath-capstone-eazydinehub.onrender.com/dishes/pizzas');
-        console.log(response.data)
         setDishes(response.data);
       } catch (error) {
         console.error('Error fetching dishes:', error);
@@ -26,7 +26,9 @@ export function Pizzas() {
 
   const addToCart = (dish) => {
     console.log('Added to cart:', dish);
+    setCart([...cart, dish]);
   };
+  console.log(cart)
 
   return (
     <div>
@@ -45,7 +47,7 @@ export function Pizzas() {
               </div>
               <div className="price">
               <h2>Rs. {dish.dishPrice}</h2>
-              <button style={{backgroundColor:"red",marginTop:"0px",width:"50%"}} onClick={()=>addToCart()}>ADD</button></div>
+              <button style={{backgroundColor:"red",marginTop:"0px",width:"50%"}} onClick={()=>addToCart(dish)}>ADD</button></div>
               </div>
           </div>
         ))}

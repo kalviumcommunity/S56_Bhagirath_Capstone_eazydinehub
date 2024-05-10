@@ -14,7 +14,6 @@ export function SoftDrinks() {
     async function fetchDishes() {
       try {
         const response = await axios.get('https://s56-bhagirath-capstone-eazydinehub.onrender.com/dishes/softdrinks');
-        console.log(response.data)
         setDishes(response.data);
       } catch (error) {
         console.error('Error fetching dishes:', error);

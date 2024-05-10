@@ -14,7 +14,6 @@ export function Burgers() {
     async function fetchDishes() {
       try {
         const response = await axios.get('https://s56-bhagirath-capstone-eazydinehub.onrender.com/dishes/burgers');
-        console.log(response.data)
         setDishes(response.data);
       } catch (error) {
         console.error('Error fetching dishes:', error);
@@ -67,7 +66,6 @@ export function EditBurgers() {
     async function fetchDishes() {
       try {
         const response = await axios.get('https://s56-bhagirath-capstone-eazydinehub.onrender.com/dishes/burgers');
-        console.log(response.data)
         setDishes(response.data);
       } catch (error) {
         console.error('Error fetching dishes:', error);

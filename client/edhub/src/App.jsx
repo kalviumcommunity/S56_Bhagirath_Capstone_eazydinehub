@@ -39,7 +39,7 @@ function App() {
         <Route path='/cheflogin' element={<ChefLogin/>}/>
         <Route path='/chefhome' element={<ChefHome/>}/>
         <Route path="/myorders" element={<YourOrders />} />
-        <Route path="/mycart" element={<Cart /> }/>
+        <Route path="/mycart" element={<Cart/> }/>
         <Route path="/myprofile" element={<CustomerProfile/>} />
       </Routes>
     </Router>
