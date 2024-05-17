@@ -1,24 +1,21 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { login } from '../actions.js'; 
+import { login } from '../../actions.js'; 
 import "../Stylesheets/Login.css";
 
 const CustomerLogin = () => {
-  const [adminEmail, setAdminEmail] = useState('');
-  const [adminPassword, setAdminPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const dispatch = useDispatch(); 
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://s56-bhagirath-capstone-eazydinehub.onrender.com/adminlogin', {
-        adminEmail,
-        adminPassword
+      const response = await axios.post('https://s56-bhagirath-capstone-eazydinehub.onrender.com/login', {
+        email,
+        password
       });
 
       if (response.status === 200) {
@@ -51,7 +48,7 @@ const CustomerLogin = () => {
             id="email"
             name="email"
             value={email}
-            onChange={(e) => setAdminEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
             placeholder="Enter your email address"
           />
@@ -60,11 +57,17 @@ const CustomerLogin = () => {
             id="password"
             name="password"
             value={password}
-            onChange={(e) => setAdminPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             required
             placeholder="Enter your password"
           />
           <button type="submit">Log In</button>
+          <p>OR</p>
+          <button onClick={e => loginWithRedirect()}>Login with Google</button>
+          <p>OR</p>
+          <Link to="/create-account" style={{ textDecoration: 'none' }}>
+            <button style={{ background: "#008000" }}>Create New Account</button>
+          </Link>
         </form>
       </div>
       <ToastContainer position='top-center'/> 

@@ -2,15 +2,16 @@ import React from 'react';
 import "../Stylesheets/Nav.css";
 import edhlogo from "../assets/edhlogo.png";
 import { Link } from "react-router-dom";
-
+import { SignedIn, SignedOut, SignInButton, UserButton} from "@clerk/clerk-react";
+import {useUser} from "@clerk/clerk-react"
 function Navbar() {
+  const user = useUser()
+  console.log(user)
   const navLinks = [
     { to: "/spldishes", text: "SPECIAL DISHES" },
     { to: "/myorders", text: "MY ORDERS" },
     { to: "/mycart", text: "CART" },
-    { to: "/myprofile", text: "PROFILE" }
   ];
-
   return (
     <div>
       <nav style={{ padding: "15px" }}>
@@ -31,8 +32,16 @@ function Navbar() {
         <div className="rightNav">
           <ul>
             {navLinks.slice(1).map((link, index) => (
-              <li key={index}><Link style={{ textDecoration: "none", color: "black" }} to={link.to}>{link.text}</Link></li>
+              <li key={index}><Link style={{ textDecoration: "none", color: "black" }} to={link.to}> <button> {link.text}</button></Link></li>
             ))}
+          <li>
+          <SignedOut>
+        <SignInButton style={{textTransform:"uppercase"}} />
+      </SignedOut>
+      <SignedIn>
+        <UserButton/>
+      </SignedIn>
+          </li>
           </ul>
         </div>
       </nav>

@@ -1,40 +1,45 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { login } from '../actions.js'; 
 import "../Stylesheets/Login.css";
 
-const CustomerLogin = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const AdminLogin = () => {
+  const [adminEmail, setAdminEmail] = useState('');
+  const [adminPassword, setAdminPassword] = useState('');
   const navigate = useNavigate();
-  const dispatch = useDispatch(); 
   
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://s56-bhagirath-capstone-eazydinehub.onrender.com/login', {
-        email,
-        password
+      const response = await axios.post('https://s56-bhagirath-capstone-eazydinehub.onrender.com/adminlogin', {
+        adminEmail,
+        adminPassword
       });
 
-      if (response.status === 200) {
-        toast.success('Login successful',{
-          autoClose:2000,
+      if (response.status >= 200 && response.status < 300) {
+        console.log('hii');
+        toast.success('Login successful', {
+          autoClose: 2000,
           onClose: () => {
-            localStorage.setItem('token', response.data.token);
-            dispatch(login()); 
-            navigate("/landingpage");
+            sessionStorage.setItem('token', response.data.token);
+            const token = sessionStorage.getItem("token");
+            if(token){
+              navigate("/adminlanding")
+            }
           }
         });
-      } else {
+      }
+      if(token){
+        console.log('hii1');
+		    navigate("/adminlanding");
+	  } else {
+        console.log('hii2');
         toast.error('Login failed');
       }
     } catch (error) {
-      toast.error(error.response.data.error);
+      toast.error(error.error);
     }
   }
  
@@ -44,14 +49,14 @@ const CustomerLogin = () => {
         <h1>EazyDine HUB</h1>
         <p>A taste you'll remember.</p>
       </div>
-      <div className="login-form">
+      <div className="login-form" style={{height:"180px"}}>
         <form onSubmit={handleSubmit}>
           <input
             type="email"
             id="email"
             name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={adminEmail}
+            onChange={(e) => setAdminEmail(e.target.value)}
             required
             placeholder="Enter your email address"
           />
@@ -59,21 +64,17 @@ const CustomerLogin = () => {
             type="password"
             id="password"
             name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={adminPassword}
+            onChange={(e) => setAdminPassword(e.target.value)}
             required
             placeholder="Enter your password"
           />
           <button type="submit">Log In</button>
-          <p>OR</p>
-          <Link to="/create-account" style={{ textDecoration: 'none' }}>
-            <button style={{ background: "#008000" }}>Create New Account</button>
-          </Link>
         </form>
       </div>
-      <ToastContainer position='top-center'/> 
+      <ToastContainer position='top-center' style={{width:"300px"}}/> 
     </div>
   );
 };
 
-export default CustomerLogin;
+export default AdminLogin;
