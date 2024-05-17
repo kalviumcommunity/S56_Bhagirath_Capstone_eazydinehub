@@ -94,7 +94,7 @@ router.post("/adminlogin", async (req, res) => {
     return res.status(401).json({ error: "Admin not found" });
   }
   if (adminPassword != admin.adminPassword) {
-    console.log("password not matching")
+    console.error("password not matching")
     return res.status(402).json({ error: "Incorrect password" });
   }
   else {
