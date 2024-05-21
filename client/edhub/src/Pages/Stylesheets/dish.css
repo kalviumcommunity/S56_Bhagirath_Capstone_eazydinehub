@@ -1,0 +1,84 @@
+.dish-list {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 40px;
+  }
+  
+  .dish-card {
+    border: 1.5px solid #ccc;
+    color: white;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 181px;
+    width: 150px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .dish-image {
+    width: 150px;
+    height: 133px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .dish-image img {
+    width: 150px;
+    height: 133px;
+  }
+  
+  .dish-details {
+    width: 100%;
+    flex: 1;
+    justify-content: space-around; 
+  }
+  
+  .dish-details p {
+    margin: 0;
+    text-align: center;
+    background-color: #ffa500;
+    height: 24px;
+    font-size: 18px;
+  }
+  .price{
+    display: flex;
+    justify-content: space-between;
+    height: 24px;
+    align-items: center;
+    text-align: center;
+    color: black;
+  }
+  .price h2{
+    width: 90px;
+    font-size: 10px;
+  }
+  .price button{
+    width: 30px;
+    height: 24px;
+    border-radius: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .price .buttons{
+    display: flex;
+  }
+   button {
+    background-color: #4CAF50;
+    width: 100px;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+   button:hover {
+    background-color: #45a049;
+  }
+  

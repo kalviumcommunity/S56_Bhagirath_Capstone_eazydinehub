@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "../Stylesheets/Signup.css";
+import axios from "axios";
 
 const CreateAccount = () => {
   const [name, setName] = useState('');
@@ -10,26 +13,25 @@ const CreateAccount = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    try {
-      const response = await fetch('/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name,email, password }),
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        alert(data.message);
+    axios.post('https://s56-bhagirath-capstone-eazydinehub.onrender.com/signup', {
+      name,
+      email,
+      password
+    })
+    .then(response => {
+      const data = response.data;
+      if (response.status === 201) {
+        toast.success(data.message);
       } else {
-        alert(data.error);
+        toast.error(data.error);
       }
-    } catch (error) {
+    })
+    .catch(error => {
       console.error('Error:', error);
-      alert('An error occurred. Please try again.');
-    }
+      toast.error('An error occurred. Please try again.');
+    });
   };
+
   return (
     <div className="create-account-container">
       <div className="login-title">
@@ -69,6 +71,7 @@ const CreateAccount = () => {
           <p>Already have an account? <Link to="/cusLogin" style={{ textDecoration: 'none' }}>Log In</Link></p>
         </form>
       </div>
+      <ToastContainer position='top-center'/> 
     </div>
   );
 };
