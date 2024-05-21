@@ -60,7 +60,7 @@ router.post("/adminlogin", async (req, res) => {
   }
   const adminPasswordMatch = await bcrypt.compare(adminPassword, admin.adminPassword);
   if (!adminPasswordMatch) {
-    console.log("password not matching")
+    console.error("password not matching")
     return res.status(402).json({ error: "Incorrect password" });
   }
   else {

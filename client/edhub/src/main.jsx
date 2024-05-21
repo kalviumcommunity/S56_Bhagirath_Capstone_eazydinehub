@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ClerkProvider } from '@clerk/clerk-react'
 
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+const PUBLISHABLE_KEY = "pk_test_cm9idXN0LWtpdHRlbi05Mi5jbGVyay5hY2NvdW50cy5kZXYk"
 
 if (!PUBLISHABLE_KEY) {
   console.error("Missing Publishable Key. Please provide a valid Clerk Publishable Key.");

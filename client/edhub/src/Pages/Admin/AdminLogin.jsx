@@ -19,7 +19,6 @@ const AdminLogin = () => {
       });
 
       if (response.status >= 200 && response.status < 300) {
-        console.log('hii');
         toast.success('Login successful', {
           autoClose: 2000,
           onClose: () => {
@@ -31,15 +30,11 @@ const AdminLogin = () => {
           }
         });
       }
-      if(token){
-        console.log('hii1');
-		    navigate("/adminlanding");
-	  } else {
-        console.log('hii2');
+    else {
         toast.error('Login failed');
       }
     } catch (error) {
-      toast.error(error.error);
+      toast.error(error.message);
     }
   }
  
