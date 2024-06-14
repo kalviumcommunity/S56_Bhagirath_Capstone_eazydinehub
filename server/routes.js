@@ -6,6 +6,7 @@ const { users } = require("./model.js");
 const { admins } = require("./model.js")
 const { dishes } = require("./model.js")
 const { chefs } = require("./model.js")
+const { orders } = require("./model.js")
 
 const bcrypt = require('bcrypt');
 require('dotenv').config();
@@ -233,7 +234,15 @@ router.post("/createchef", async (req, res) => {
     res.status(500).json({ error: error.message || "Internal server error" });
   } 
 });
-router.post("/cart",async(res,res)=>{
-  
-})
+router.post('/order', async (req, res) => {
+  try {
+    const { cart, totalPrice, email, name, date } = req.body;
+    const order = await orders.create({ cart, totalPrice, email, name, date: date || new Date() });
+    res.status(200).json({ message: 'Order placed successfully' });
+  } catch (error) {
+    console.error('Error placing order:', error);
+    res.status(500).json({ message: 'Failed to place order' });
+  }
+});
+
 module.exports = router;

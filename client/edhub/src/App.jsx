@@ -19,9 +19,35 @@ import ChefHome from './Pages/Chef/ChefHome';
 import { useAuth0 } from '@auth0/auth0-react';
 function App() {
   const {user,isAuthenticated} = useAuth0()
+  const [cart, setCart] = useState([]);
   if(isAuthenticated){
     console.log(user)
   }
+  const addToCart = (dish) => {
+    setCart(prevCart => {
+      const existingDishIndex = prevCart.findIndex(item => item.dishName === dish.dishName);
+      if (existingDishIndex >= 0) {
+        const newCart = [...prevCart];
+        newCart[existingDishIndex].quantity += 1;
+        return newCart;
+      } else {
+        return [...prevCart, { ...dish, quantity: 1 }];
+      }
+    });
+  };
+
+  const incrementQuantity = (dishName) => {
+    setCart(prevCart => prevCart.map(item =>
+      item.dishName === dishName ? { ...item, quantity: item.quantity + 1 } : item
+    ));
+  };
+
+  const decrementQuantity = (dishName) => {
+    setCart(prevCart => prevCart.map(item =>
+      item.dishName === dishName ? { ...item, quantity: Math.max(1, item.quantity - 1) } : item
+    ));
+  };
+
   return (
     <Router>
       <Routes>
@@ -29,7 +55,7 @@ function App() {
         <Route path='/cusLogin' element={<CustomerLogin />} />
         <Route path="/adLogin" element={<AdminLogin/>}/>
         <Route path="/create-account" element={<CreateAccount />} />
-        <Route path="/landingpage" element={<CustomerHome />} />
+        <Route path="/landingpage" element={<CustomerHome addToCart={addToCart} incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity} />} />
         <Route path="/spldishes" element={<SpecialDishes />} /> 
         <Route path="/adminlanding" element={<AdminLanding />} /> 
         <Route path="/addadmin" element={<CreateAdmin/>}/>
@@ -39,7 +65,7 @@ function App() {
         <Route path='/cheflogin' element={<ChefLogin/>}/>
         <Route path='/chefhome' element={<ChefHome/>}/>
         <Route path="/myorders" element={<YourOrders />} />
-        <Route path="/mycart" element={<Cart/> }/>
+        <Route path="/mycart" element={<Cart cart={cart} incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity}/> }/>
         <Route path="/myprofile" element={<CustomerProfile/>} />
       </Routes>
     </Router>

@@ -7,9 +7,8 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 
 
-export function Pizzas() {
+export function Pizzas({addToCart}) {
   const [dishes, setDishes] = useState([]);
-  const [cart,setCart] = useState([])
 
   useEffect(() => {
     async function fetchDishes() {
@@ -24,15 +23,9 @@ export function Pizzas() {
     fetchDishes();
   }, []);
 
-  const addToCart = (dish) => {
-    console.log('Added to cart:', dish);
-    setCart([...cart, dish]);
-  };
-  console.log(cart)
-
   return (
     <div>
-     <h2 style={{textAlign:"center",marginTop:"15px"}}>Soft Drinks</h2>
+     <h2 style={{textAlign:"center",marginTop:"15px"}}>Pizzas</h2>
       <div className="dish-list">
         {dishes.map((dish, index) => (
           <div className="dish-card" key={index}>

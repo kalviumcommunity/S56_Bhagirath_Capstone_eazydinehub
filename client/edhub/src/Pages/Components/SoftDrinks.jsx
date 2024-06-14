@@ -7,7 +7,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 
 
-export function SoftDrinks() {
+export function SoftDrinks({addToCart}) {
   const [dishes, setDishes] = useState([]);
 
   useEffect(() => {
@@ -23,9 +23,6 @@ export function SoftDrinks() {
     fetchDishes();
   }, []);
 
-  const addToCart = (dish) => {
-    console.log('Added to cart:', dish);
-  };
 
   return (
     <div>
@@ -44,7 +41,7 @@ export function SoftDrinks() {
               </div>
               <div className="price">
               <h2>Rs. {dish.dishPrice}</h2>
-              <button style={{backgroundColor:"red",marginTop:"0px",width:"50%"}} onClick={()=>addToCart()}>ADD</button></div>
+              <button style={{backgroundColor:"red",marginTop:"0px",width:"50%"}} onClick={()=>addToCart(dish)}>ADD</button></div>
               </div>
           </div>
         ))}
