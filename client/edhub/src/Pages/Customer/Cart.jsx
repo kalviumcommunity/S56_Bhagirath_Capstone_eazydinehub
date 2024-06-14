@@ -2,11 +2,13 @@ import React from 'react';
 import axios from 'axios';
 import Navbar from '../Components/Navbar';
 import { useUser } from '@clerk/clerk-react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Cart({ cart, incrementQuantity, decrementQuantity }) {
   const { user, isSignedIn } = useUser();
 
-  console.log('Cart Items:', cart);
+  console.log(isSignedIn);
 
   const totalPrice = cart.reduce((total, item) => {
     const price = parseFloat(item.dishPrice.replace('$', ''));
@@ -15,28 +17,30 @@ function Cart({ cart, incrementQuantity, decrementQuantity }) {
 
   const handleProceed = async () => {
     if (!isSignedIn) {
-      alert('Please sign in to place an order.');
-      return;
+      toast.error("Please sign in to place your order")
     }
-
-    try {
-      const response = await axios.post('https://s56-bhagirath-capstone-eazydinehub.onrender.com/order', {
-        cart,
-        totalPrice,
-        email: user.primaryEmailAddress.emailAddress,
-        name: user.fullName
-      });
-
-      if (response.status === 200) {
-        alert('Order placed successfully!');
-      } else {
-        alert('Failed to place order.');
+    else{
+      try {
+        const response = await axios.post('https://s56-bhagirath-capstone-eazydinehub.onrender.com/order', {
+          cart,
+          totalPrice,
+          email: user.primaryEmailAddress.emailAddress,
+          name: user.fullName
+        });
+  
+        if (response.status === 200) {
+          toast.success('Order placed successfully!', {
+            autoClose: 2500
+          });
+        } else {
+          toast.error('Failed to place order.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        toast.error('An error occurred. Please try again.');
       }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('An error occurred. Please try again.');
+    };
     }
-  };
 
   const buttonStyle = {
     width: '50px',
@@ -78,11 +82,12 @@ function Cart({ cart, incrementQuantity, decrementQuantity }) {
             </tbody>
           </table>
           <h2>Total Price: ${totalPrice.toFixed(2)}</h2>
-          <button onClick={handleProceed} disabled={!isSignedIn}>Proceed to Order</button>
+          <button onClick={handleProceed}>Proceed to Order</button>
         </div>
       ) : (
         <p>Your cart is empty.</p>
       )}
+      <ToastContainer />
     </div>
   );
 }
