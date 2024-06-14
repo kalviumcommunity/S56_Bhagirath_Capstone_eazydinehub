@@ -24,6 +24,10 @@ Day 1 : Setting up a github repo,client, server folders and adding a readme file
 Day 2 : Low-Fid Figma Design
 Day 3 : High-Fid Figma Design
 
+#backend server link : https://s56-bhagirath-capstone-eazydinehub.onrender.com
+
+#Front-End Deployed Link : https://edhub-theta.vercel.app/
+
 #Low fid prototype link : https://www.figma.com/file/uBunyxQYWGmAXqjQV1Ovej/Capstone_LowFid?type=design&node-id=0%3A1&mode=design&t=utjpW5u0BtB4vC1W-1
 
 #High fid Prototype link : https://www.figma.com/file/XZmaMvzrOb617yzUjfIqlb/Capstone_HighFid?type=design&node-id=0%3A1&mode=design&t=8r3QpBe44BqPf9eb-1
