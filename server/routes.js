@@ -1,15 +1,13 @@
 const express = require("express");
-const router = express.Router();
 const jwt = require("jsonwebtoken");
-const mongoose = require("mongoose")
-const { users } = require("./model.js"); 
-const { admins } = require("./model.js")
-const { dishes } = require("./model.js")
-const { chefs } = require("./model.js")
-const { orders } = require("./model.js")
-
+const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
+const moment = require("moment")
 require('dotenv').config();
+
+const { users, admins, dishes, chefs, orders, completedorders } = require("./model.js");
+
+const router = express.Router();
 const jwtSecret = process.env.JWT_SECRET;
 
 const verifyToken = (req, res, next) => {
@@ -244,5 +242,67 @@ router.post('/order', async (req, res) => {
     res.status(500).json({ message: 'Failed to place order' });
   }
 });
+router.get('/order', async (req, res) => {
+  try {
+    const orderss = await orders.find({});
+    res.json(orderss);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+})
+router.get('/orders/:email', async (req, res) => {
+  try {
+    const { email } = req.params;
+    const customerOrders = await orders.find({ email: email });
+    res.status(200).json(customerOrders);
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    res.status(500).json({ message: 'Failed to fetch orders' });
+  }
+});
+router.post('/complete', async (req, res) => {
+  try {
+    const { orderId } = req.body;
 
-module.exports = router;
+    if (!orderId) {
+      return res.status(400).send('Order ID is required');
+    }
+
+    const order = await orders.findById(orderId);
+    console.log(order)
+    if (!order) {
+      return res.status(404).send('Order not found');
+    }
+
+    const completedOrder = new completedorders({
+      cart: order.cart,
+      totalPrice: order.totalPrice,
+      email: order.email,
+      name: order.name,
+      date: order.date,
+      orderStatus: 'completed',
+    });
+
+    await completedOrder.save();
+    await orders.findByIdAndDelete(orderId);
+
+    res.send('Order completed successfully');
+  } catch (error) {
+    console.error('Error completing order:', error);
+    res.status(500).send('Server Error');
+  }
+});
+router.get("/complete",async(req,res)=>{
+  const today = moment().startOf('day').toISOString();
+  try {
+    const orderss = await completedorders.find({date:{
+      $gte: new Date(today),
+      $lt: new Date(today).setDate(new Date(today).getDate() + 1)
+    }})
+    res.json(orderss)
+  } catch (error) {
+    res.status(500).json({ message: err.message });
+  }
+})
+
+module.exports = router

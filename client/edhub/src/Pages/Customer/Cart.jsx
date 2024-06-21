@@ -32,6 +32,9 @@ function Cart({ cart, incrementQuantity, decrementQuantity }) {
           toast.success('Order placed successfully!', {
             autoClose: 2500
           });
+          setTimeout(()=>{
+            window.location.reload()
+          },2700)
         } else {
           toast.error('Failed to place order.');
         }
@@ -53,7 +56,7 @@ function Cart({ cart, incrementQuantity, decrementQuantity }) {
   return (
     <div>
       <Navbar />
-      <h1>Your Cart</h1>
+      <h1 style={{display:"flex",justifyContent:"center",marginTop:"10px"}}>Your Cart</h1>
       {cart.length > 0 ? (
         <div>
           <table>
@@ -72,7 +75,7 @@ function Cart({ cart, incrementQuantity, decrementQuantity }) {
                   <td>{item.dishName}</td>
                   <td>{item.dishPrice}</td>
                   <td>{item.quantity}</td>
-                  <td>${(parseFloat(item.dishPrice.replace('$', '')) * item.quantity).toFixed(2)}</td>
+                  <td>Rs.{(parseFloat(item.dishPrice.replace('Rs.', '')) * item.quantity).toFixed(2)}</td>
                   <td>
                     <button style={buttonStyle} onClick={() => incrementQuantity(item.dishName)}>+</button>
                     <button style={buttonStyle} onClick={() => decrementQuantity(item.dishName)}>-</button>
@@ -81,7 +84,7 @@ function Cart({ cart, incrementQuantity, decrementQuantity }) {
               ))}
             </tbody>
           </table>
-          <h2>Total Price: ${totalPrice.toFixed(2)}</h2>
+          <h2>Total Price: Rs.{totalPrice.toFixed(2)}</h2>
           <button onClick={handleProceed}>Proceed to Order</button>
         </div>
       ) : (

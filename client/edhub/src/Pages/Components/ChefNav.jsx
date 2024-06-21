@@ -13,8 +13,15 @@ function Navbar() {
               <img src={edhlogo} alt="EDH Logo" />
           </div>
             <div className="spl">
-              CHEF'S AREA
+            <ul><li>
+        <Link style={{ textDecoration: "none", color: "black" }} to={'/chefhome'}> <button>CHEF'S AREA</button></Link>
+          </li></ul>
             </div>
+        </div>
+        <div className="rightNav">
+        <ul><li>
+        <Link style={{ textDecoration: "none", color: "black" }} to={'/completed'}> <button>COMPLETED ORDERS</button></Link>
+          </li></ul>
         </div>
       </nav>
     </div>

@@ -38,6 +38,18 @@
     font-size: var(--font-size);
     cursor: pointer;
   }
+  .leftNav ul{
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    justify-content: center;
+    align-items: center;
+  }
+  .leftNav ul li{
+    margin: 0px 10px 0px 10px;
+    font-size: var(--font-size);
+    cursor: pointer;
+  }
   
   .rightNav ul {
     display: flex;
@@ -56,6 +68,21 @@
     padding: 20px;
   }
   .rightNav ul li button {
+    margin: 0px;
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-style: normal;
+    width: auto;
+    outline: none;
+    background-color: var(--secondary-color);
+    border: none;
+    font-size: var(--font-size);
+    cursor: pointer;
+    color: var(--primary-color);
+  }
+  
+  
+  .leftNav ul li button {
     margin: 0px;
     font-family: var(--font-family);
     font-weight: 400;

@@ -1,18 +1,10 @@
 import React from 'react';
-import {useState,useEffect} from 'react'
 import "../Stylesheets/Nav.css";
 import edhlogo from "../assets/edhlogo.png";
 import { Link } from "react-router-dom";
 import { SignedIn, SignedOut, SignInButton, UserButton} from "@clerk/clerk-react";
-import {useUser} from "@clerk/clerk-react"
 function Navbar() {
-  const [userData,setUserData] = useState([{}])
-  const { isSignedIn, user, isLoaded } = useUser();
-  if(isSignedIn){
-    console.log(user)
-  }
-  const navLinks = [
-    { to: "/spldishes", text: "SPECIAL DISHES" },
+  const navLinks = [,
     { to: "/myorders", text: "MY ORDERS" },
     { to: "/mycart", text: "CART" },
   ];
@@ -25,13 +17,6 @@ function Navbar() {
               <img src={edhlogo} alt="EDH Logo" />
             </Link>
           </div>
-          {navLinks.slice(0, 1).map((link, index) => (
-            <div key={index} className="spl">
-              <Link style={{ textDecoration: "none", color: "black" }} to={link.to}>
-                <p>{link.text}</p>
-              </Link>
-            </div>
-          ))}
         </div>
         <div className="rightNav">
           <ul>

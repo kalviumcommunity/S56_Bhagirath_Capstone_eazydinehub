@@ -1,3 +1,4 @@
+const { required } = require('joi');
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
@@ -55,10 +56,44 @@ const OrderSchema = new mongoose.Schema({
     date: {
       type: Date,
       default: Date.now
+    },
+    orderStatus:{
+      type:String,
+      default: "pending"
     }
   });
 OrderSchema.set("versionKey",false)
 const orders = mongoose.model('orders', OrderSchema);
 
+const CompletedOrderSchema = new mongoose.Schema({
+  cart: {
+    type: Array,
+    required: true
+  },
+  totalPrice: {
+    type: Number,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  date: {
+    type: Date,
+    default: Date.now
+  },
+  orderStatus: {
+    type: String,
+    default: "completed"
+  }
+});
 
-module.exports = {users,admins,dishes,chefs,orders}
+const completedorders = mongoose.model('completedorders', CompletedOrderSchema)
+CompletedOrderSchema.set("versionKey",false)
+
+
+module.exports = {users,admins,dishes,chefs,orders,completedorders}

@@ -4,7 +4,6 @@ import Visitor from "./Pages/Visitor"
 import CustomerLogin from './Pages/Customer/CustomerLogin';
 import CreateAccount from './Pages/Customer/CreateAccount';
 import CustomerHome from './Pages/Customer/CustomerHome';
-import SpecialDishes from './Pages/Customer/SpecialDishes';
 import Cart from './Pages/Customer/Cart';
 import CustomerProfile from './Pages/Customer/CustomerProfile';
 import YourOrders from './Pages/Customer/YourOrders';
@@ -16,13 +15,12 @@ import AddDishes from './Pages/Admin/AddDishes';
 import CreateChef from './Pages/Admin/Createchef';
 import ChefLogin from './Pages/Chef/ChefLogin';
 import ChefHome from './Pages/Chef/ChefHome';
-import { useAuth0 } from '@auth0/auth0-react';
+import CompletedOrders from './Pages/Chef/CompletedOrders';
+import { useUser } from '@clerk/clerk-react';
 function App() {
-  const {user,isAuthenticated} = useAuth0()
   const [cart, setCart] = useState([]);
-  if(isAuthenticated){
-    console.log(user)
-  }
+  const user = useUser()
+
   const addToCart = (dish) => {
     setCart(prevCart => {
       const existingDishIndex = prevCart.findIndex(item => item.dishName === dish.dishName);
@@ -56,7 +54,6 @@ function App() {
         <Route path="/adLogin" element={<AdminLogin/>}/>
         <Route path="/create-account" element={<CreateAccount />} />
         <Route path="/landingpage" element={<CustomerHome addToCart={addToCart} incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity} />} />
-        <Route path="/spldishes" element={<SpecialDishes />} /> 
         <Route path="/adminlanding" element={<AdminLanding />} /> 
         <Route path="/addadmin" element={<CreateAdmin/>}/>
         <Route path="/allusers" element={<Users/>}/>
@@ -67,6 +64,7 @@ function App() {
         <Route path="/myorders" element={<YourOrders />} />
         <Route path="/mycart" element={<Cart cart={cart} incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity}/> }/>
         <Route path="/myprofile" element={<CustomerProfile/>} />
+        <Route path="/completed" element={<CompletedOrders/>} />
       </Routes>
     </Router>
   );
